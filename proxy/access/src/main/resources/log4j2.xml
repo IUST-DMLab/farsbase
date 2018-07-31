@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS}   %-20t %-5level %style{%C{3.}.%M(@%L)}{black} : %highlight{%msg%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=blue, DEBUG=green, TRACE=white}"/>
+        </Console>
+        <File name="MyFile" fileName="all.log" immediateFlush="false" append="false">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} %-20t %-5level %-70C%-15.15M @%-4L - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="ir.ac.iust.dml.kg" level="DEBUG"/>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="MyFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

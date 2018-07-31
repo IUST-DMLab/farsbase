@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
+
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
+
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="node_modules/lodash/lodash.js"></script>
+
+    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="node_modules/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="node_modules/angular-material/angular-material.js"></script>
+    <script type="text/javascript" src="node_modules/angular-messages/angular-messages.js"></script>
+    <script type="text/javascript" src="node_modules/angular-cookies/angular-cookies.js"></script>
+    <script type="text/javascript" src="node_modules/angular-material-icons/angular-material-icons.min.js"></script>
+
+
+    <link href="node_modules/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+    <script src="node_modules/angular-material-data-table/dist/md-data-table.min.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <script type="text/javascript" src="scripts/app/app.js"></script>
+    <script type="text/javascript" src="scripts/app/service/rest.js"></script>
+    <script type="text/javascript" src="scripts/app/controller/main.js"></script>
+
+</head>
+<body ng-app="evaluationApp">
+
+<div ng-controller="MainController" ng-cloak dir="rtl">
+
+    <md-content class="md-padding">
+
+        <div layout="column">
+            <h1>{{data.query.q}}</h1>
+
+            <md-divider></md-divider>
+
+            <div class="md-padding">
+                <md-table-container>
+                    <table md-table cellpadding="10" cellspacing="0" style="width: 100%;">
+                        <thead md-head>
+                        <tr md-row>
+                            <th md-column>عنوان</th>
+                            <th md-column style="width: 220px;">وضعیت</th>
+                            <th md-column style="width: 50px;"></th>
+                        </tr>
+                        </thead>
+                        <tfoot md-foot="">
+                        <tr md-row>
+                            <td md-cell></td>
+                            <td md-cell>
+                                <md-button class="md-raised md-primary" ng-click="checkAll('true')">همه مرتبط
+                                </md-button>
+                                <md-button class="md-raised md-warn" ng-click="checkAll('false')">همه نامرتبط
+                                </md-button>
+                            </td>
+                            <td md-cell></td>
+                        </tr>
+                        </tfoot>
+                        <tbody md-body>
+                        <tr md-row ng-repeat="item in data.searchResults" ng-class-odd="'odd'" ng-class-even="'even'">
+                            <td md-cell><a href="{{item.link}}">{{item.title}}</a></td>
+                            <td md-cell>
+                                <md-radio-group ng-model="item.relevant" layout="row">
+                                    <md-radio-button value="true" class="md-primary">مرتبط</md-radio-button>
+                                    <md-radio-button value="false" ng-disabled="item.fixed" class="md-warn md-mini">
+                                        نامرتبط
+                                    </md-radio-button>
+                                </md-radio-group>
+                            </td>
+                            <td md-cell>
+                                <md-button class="" ng-if="item.fixed" ng-click="remove(item)">حذف</md-button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </div>
+
+            <md-divider></md-divider>
+
+            <div layout="column" class="md-padding">
+                <div layout="row">
+                    <md-input-container>
+                        <label>جستجوی موجودیت جدید</label>
+                        <input ng-model="search.keyword" style="width: 400px;">
+                    </md-input-container>
+                    <md-input-container>
+                        <md-button class="md-raised"
+                                   style="background-color: rgba(255, 222, 121, 0.96);"
+                                   ng-click="search();">بیاب
+                        </md-button>
+                    </md-input-container>
+                </div>
+
+                <div layout="column">
+                    <ul class="breadcrumb" ng-if="search.results.breadcrumb.length">
+                        <li ng-repeat="item in search.results.breadcrumb">{{item}}</li>
+                    </ul>
+
+                    <div ng-repeat="entity in search.results.entities" class="entity">
+                        <div>
+                            <a href="{{entity.link | triple}}" class="title">{{entity.title}}</a>
+                        </div>
+                        <div>
+                            <span class="subtitle">{{entity.subtitle}}</span>
+                        </div>
+                        <div>
+                            <span class="description">{{entity.description}}</span>
+                        </div>
+                        <div>
+                            <div ng-repeat="photo in entity.photoUrls" class="image-container">
+                                <img src="{{photo}}" width="200px">
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                        <div>
+                            <div ng-repeat="(key, value) in entity.keyValues">
+                                <span class="key">{{key}}: </span>
+                                <span ng-repeat="item in value.values">
+                                    <a class="value" ng-if="item.link" ng-href="{{item.link}}">{{item.string}}</a><span
+                                        class="value" ng-if="!item.link">{{item.string}}</span><span
+                                        ng-if="!$last">،</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <md-button class="md-raised md-primary"
+                                       style="background-color: darkorange"
+                                       ng-click="add(entity);">افزودن آیتم مرتبط
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <md-divider></md-divider>
+
+            <div layout="row">
+
+                <md-input-container>
+                    <label>دلیل عدم پاسخگویی</label>
+                    <md-select ng-model="data.statusReason" style="width: 300px;">
+                        <md-option ng-value=""></md-option>
+                        <md-option ng-repeat="r in reasons" ng-value="r">{{r}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container>
+                    <md-button class="md-raised md-primary"
+                               style="background-color: darkgreen"
+                               ng-click="submit();">ثبت اطلاعات
+                    </md-button>
+                </md-input-container>
+
+            </div>
+
+        </div>
+
+    </md-content>
+
+</div>
+
+</body>
+</html>

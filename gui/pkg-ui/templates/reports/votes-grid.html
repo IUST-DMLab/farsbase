@@ -1,0 +1,21 @@
+<table class="simple" cellspacing="0" cellpadding="10">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>نام</th>
+        <th>نام کاربری</th>
+        <th>نوع رای</th>
+        <th>تعداد</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in items track by $index" ng-class="{even: $even, odd: $odd}" class="clickable"
+        ng-click="showTriplesByVote(item, $event);">
+        <td>{{(paging.pageIndex * paging.pageSize + $index)+1 | persianNumbers}}</td>
+        <td>{{item.user.name}}</td>
+        <td>{{item.user.username}}</td>
+        <td>{{item.vote}}</td>
+        <td>{{item.count | persianNumbers}}</td>
+    </tr>
+    </tbody>
+</table>

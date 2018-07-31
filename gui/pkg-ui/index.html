@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+
+    <title>گراف دانش فارسی</title>
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/d3/d3.min.js"></script>
+    <script type="text/javascript" src="bower_components/lodash/lodash.js"></script>
+
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="bower_components/angular-material/angular-material.js"></script>
+    <script type="text/javascript" src="bower_components/angular-messages/angular-messages.js"></script>
+    <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script type="text/javascript" src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-breadcrumb/dist/angular-breadcrumb.min.js"></script>
+    <script type="text/javascript" src="bower_components/material-angular-paging/build/dist.min.js"></script>
+
+    <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js" type="text/javascript"></script>
+
+    <link href="bower_components/angular-ivh-treeview/dist/ivh-treeview.min.css" rel="stylesheet" type="text/css"/>
+    <link href="bower_components/angular-ivh-treeview/dist/ivh-treeview-theme-basic.css" rel="stylesheet" type="text/css"/>
+    <script src="bower_components/angular-ivh-treeview/dist/ivh-treeview.min.js" type="text/javascript"></script>
+
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <script src="bower_components/moment-jalaali/build/moment-jalaali.js"></script>
+    <link rel="stylesheet" href="bower_components/angular-material-persian-datepicker/src/datePicker.css">
+    <script src="bower_components/angular-material-persian-datepicker/src/datePicker.js"></script>
+    <script src="bower_components/angular-material-persian-datepicker/src/js/calendar.js"></script>
+    <script src="bower_components/angular-material-persian-datepicker/src/js/calendarMonth.js"></script>
+    <script src="bower_components/angular-material-persian-datepicker/src/js/calendarMonthBody.js"></script>
+    <script src="bower_components/angular-material-persian-datepicker/src/js/calendarYear.js"></script>
+    <script src="bower_components/angular-material-persian-datepicker/src/js/calendarYearBody.js"></script>
+    <script src="bower_components/angular-material-persian-datepicker/src/js/dateLocaleProvider.js"></script>
+    <script src="bower_components/angular-material-persian-datepicker/src/js/datepickerDirective.js"></script>
+    <script src="bower_components/angular-material-persian-datepicker/src/js/dateUtil.js"></script>
+
+    <link rel="stylesheet" href="styles/main.css?v=961019A">
+    <script type="text/javascript" src="scripts/tools.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/app.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/config.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/service/rest.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/main.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/login.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/user.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/home.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/dashboard.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/users.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/permissions.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/forwards.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/ontology.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/mappings.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/search.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/reports.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/app/controller/run.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/tree.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/date.js?v=961019A"></script>
+    <script type="text/javascript" src="scripts/general.js?v=961019A"></script>
+
+</head>
+<body ng-app="KnowledgeGraphApp" class="scroll2">
+
+<div ng-cloak dir="rtl" ng-controller="MainController">
+    <md-toolbar class="md-whiteframe-1dp" ng-if="localStorage.getItem('authToken')">
+        <div class="md-toolbar-tools">
+            <div class="md-title">سیستم گراف دانش فارسی</div>
+
+            <span flex=""></span>
+            <span class="fa fa-lg fa-user"></span>
+            <h3>({{username}})</h3>
+            <md-button ng-click="logout($event)">خروج</md-button>
+        </div>
+    </md-toolbar>
+    <div ui-view></div>
+</div>
+
+</body>
+</html>

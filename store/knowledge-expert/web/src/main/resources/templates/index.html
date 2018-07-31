@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Spring Security Example </title>
+</head>
+<body>
+Logged user: <span sec:authentication="name">Bob</span>
+Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<md-content flex layout-padding layout="row">
+    <md-list flex="30" role="navigation" style="max-height: 800px;overflow: auto">
+        لیست قوانین
+        <md-list-item ng-repeat="x in rules" style="font-size: 12px"
+                      ng-click="rulesOptions.selected=x" dir="ltr">
+            <div class="md-list-item-text" layout="column">
+                <div dir="ltr" style="text-align: left">{{x.predicate}}</div>
+            </div>
+        </md-list-item>
+    </md-list>
+    <div flex="70">
+        ویرایش قوانین. یکی از قانون‌های سمت راست را برای ویرایش یا حذف انتخاب کنید.
+        <div flex="100" layout="row">
+            <md-button class="md-raised md-primary" flex="50" ng-click="newRule()">قانون جدید</md-button>
+            <md-button class="md-raised md-warn" flex="50" ng-click="removeRule()">حذف</md-button>
+        </div>
+        <div flex="100" layout="row">
+            <md-input-container class="md-block" flex="10">
+                <md-checkbox name="approved" ng-model="rulesOptions.selected.approved" ng-change="editRule()">
+                    تایید
+                </md-checkbox>
+            </md-input-container>
+            <md-input-container dir="ltr" class="md-block" flex="20">
+                <input ng-change="editRule()" name="rule" ng-model="rulesOptions.selected.predicate">
+            </md-input-container>
+            <md-input-container dir="ltr" class="md-block" flex="70">
+                <textarea ng-change="editRule()" name="rule" ng-model="rulesOptions.selected.rule"></textarea>
+            </md-input-container>
+        </div>
+        <div flex="100" layout="column">
+            <md-input-container>
+                <label>متن خام</label>
+                <textarea name="text" ng-model="rulesOptions.text"></textarea>
+            </md-input-container>
+            <md-button class="md-raised md-primary" ng-click="ruleTest()">تولید سه‌تایی با قوانین تایید شده</md-button>
+            <pre dir="ltr" style="white-space: pre">
+{{resultRules}}
+            </pre>
+        </div>
+    </div>
+</md-content>

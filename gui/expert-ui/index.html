@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
+
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
+
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+
+    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="node_modules/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="node_modules/angular-material/angular-material.js"></script>
+    <script type="text/javascript" src="node_modules/angular-messages/angular-messages.js"></script>
+    <script type="text/javascript" src="node_modules/angular-cookies/angular-cookies.js"></script>
+    <script type="text/javascript" src="node_modules/angular-material-icons/angular-material-icons.min.js"></script>
+
+    <link rel="stylesheet" href="styles/main.css?v=960828">
+
+    <script type="text/javascript" src="scripts/app/app.js?v=960828"></script>
+    <script type="text/javascript" src="scripts/app/service/rest.js?v=960828"></script>
+    <script type="text/javascript" src="scripts/app/controller/main.js?v=960828"></script>
+
+</head>
+<body ng-app="expertApp">
+
+<div ng-controller="MainController" ng-cloak dir="rtl">
+    <div ng-show="authenticated" class="container">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" ng-click="toggle()"
+                           style="fill: #fff;" aria-label="منو">
+                    <ng-md-icon icon="menu"></ng-md-icon>
+                </md-button>
+                <a href="{{data.pageTitleUrl}}" target="_blank"><h1>{{data.pageTitle}}</h1></a>
+                <span flex=""></span>
+                <span class="fa fa-lg fa-user"></span>
+                <h3>({{username}})</h3>
+                <md-button ng-click="logout($event)">خروج</md-button>
+            </div>
+        </md-toolbar>
+
+        <md-sidenav
+                class="md-sidenav-right"
+                md-component-id="sidebar"
+                md-is-open="false"
+                md-whiteframe="3">
+
+            <md-toolbar class="md-theme-indigo">
+                <h1 class="md-toolbar-tools">فهرست</h1>
+            </md-toolbar>
+            <md-content layout-padding>
+                <div ng-include data-src="'html/subjects.html?v=960828'"></div>
+            </md-content>
+        </md-sidenav>
+
+        <md-content flex>
+
+            <div layout="column" layout-align="top center">
+                <div layout-fill ng-include data-src="'html/triples.html?v=960828'"></div>
+            </div>
+
+            <div flex></div>
+
+        </md-content>
+
+    </div>
+
+    <div ng-if="!authenticated" class="block-screen"></div>
+
+    <div ng-if="!authenticated" class="container">
+        <div ng-include data-src="'html/login.html?v=960828'"></div>
+    </div>
+</div>
+
+</body>
+</html>

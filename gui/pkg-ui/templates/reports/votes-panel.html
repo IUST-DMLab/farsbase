@@ -1,0 +1,15 @@
+<div role="dialog" aria-label="" layout="column" layout-align="center center" class="rtl" dir="rtl">
+    <!--<form ng-cloak>-->
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4>{{selectedItem.user.name}}</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()">
+                <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div class="dialog-panel-content scroll2">
+        <div ng-include="'./templates/reports/votes-grid.html'"></div>
+    </div>
+</div>

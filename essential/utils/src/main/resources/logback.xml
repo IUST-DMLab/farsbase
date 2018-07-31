@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <!--<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</Pattern>-->
+      <pattern>%-15thread %highlight(%-5level) %gray(%logger{15}) %red(%-3line) %msg %ex{full}%n
+      </pattern>
+    </layout>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/mapping.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <maxHistory>5</maxHistory>
+      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>1MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>%-15thread %-5level %logger{15} %-3line %ex %msg %ex{full,InvalidLoginExceptionSuppressor}%n</pattern>
+    </layout>
+  </appender>
+
+  <logger name="ir.ac.iust.dml" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="FILE"/>
+  </logger>
+
+  <root level="error">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="FILE"/>
+  </root>
+
+</configuration>

@@ -1,0 +1,212 @@
+<md-content flex layout-padding ng-if="username">
+    <md-tabs md-dynamic-height md-border-bottom md-selected="params.st">
+        <md-tab label="جستجو">
+            <div layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                <md-input-container flex="20">
+                    <label>کاربر</label>
+                    <md-select ng-model="params.assignee">
+                        <md-option ng-value="null">همه</md-option>
+                        <md-option ng-repeat="x in users" ng-value="x.username">{{x.username}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container>
+                    <label>وضعیت</label>
+                    <md-select ng-model="params.approved">
+                        <md-option ng-value="null">همه</md-option>
+                        <md-option ng-value="true">تأیید شده</md-option>
+                        <md-option ng-value="false">رد شده</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container>
+                    <label>گزاره</label>
+                    <input ng-model="params.predicate">
+                </md-input-container>
+                <md-checkbox ng-model="params.exact" aria-label="عینا">
+                    عینا
+                </md-checkbox>
+                <md-input-container>
+                    <label>حداقل تعداد تکرار</label>
+                    <input ng-model="params.minOccurrence" type="number" step="1">
+                </md-input-container>
+                <md-button class="md-primary" aria-label="تخصیص"
+                           ng-click="go(1)">جستجو
+                </md-button>
+            </div>
+            <div ng-if="data.totalPages==0" layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                هیچ کارتی وجود ندارد!
+            </div>
+
+            <div ng-if="data.totalPages>0" layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                <span style="color: green; padding: 5px">
+                تعداد کارت‌های تأیید شده: {{numberOfApproved}}
+                 </span>
+                <span style="color: red; padding: 5px">
+                تعداد کارت‌های رد شده: {{numberOfRejected}}
+                </span>
+                <span style="color: blue; padding: 5px">
+                تعداد صفحات: {{data.totalPages}}
+                </span>
+                <md-button class="md-primary" aria-label="قبلی" ng-disabled="data.pageNo==1"
+                           ng-click="go(data.pageNo - 1)">قبلی
+                </md-button>
+                <md-input-container class="md-icon-float md-icon-right md-block">
+                    <input ng-change="go(data.pageNo)" ng-model="data.pageNo"
+                           type="number" max="{{data.totalPages}}" min="0" step="1">
+                </md-input-container>
+                <md-button class="md-primary" aria-label="بعدی"
+                           ng-disabled="data.pageNo==data.totalPages"
+                           ng-click="go(data.pageNo + 1)">بعدی
+                </md-button>
+            </div>
+
+            <md-grid-list md-cols-xl="5" md-cols-lg="4" md-cols="4"
+                          md-cols-md="3" md-cols-sm="2" md-cols-xs="1"
+                          md-row-height="350px">
+                <md-grid-tile ng-repeat="x in data.content">
+                    <md-card md-colors="{background: '{{colors[x.approved]}}'}">
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">
+                            {{x.predicate}} - {{x.occurrence}}
+                                </span>
+                            </md-card-title-text>
+                        </md-card-title>
+                        <md-card-content>
+                            <div>
+                            </div>
+                            <span ng-bind-html="x.toShow"></span>
+                        </md-card-content>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <md-button ng-click="vote(x, true)">تأیید</md-button>
+                            <md-button ng-click="vote(x, false)">رد</md-button>
+                            <md-button ng-click="vote(x, null)">نمیدانم</md-button>
+                        </md-card-actions>
+                    </md-card>
+                </md-grid-tile>
+            </md-grid-list>
+
+            <div ng-if="data.totalPages>0" layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                تعداد صفحات: {{data.totalPages}}
+                <md-button class="md-primary" aria-label="قبلی" ng-disabled="data.pageNo==1"
+                           ng-click="go(data.pageNo - 1)">قبلی
+                </md-button>
+                <md-input-container class="md-icon-float md-icon-right md-block">
+                    <input ng-change="go(data.pageNo - 1)" ng-model="data.pageNo"
+                           type="number" max="{{data.totalPages}}" min="0" step="1">
+                </md-input-container>
+                <md-button class="md-primary" aria-label="بعدی"
+                           ng-disabled="data.pageNo==data.totalPages"
+                           ng-click="go(data.pageNo + 1)">بعدی
+                </md-button>
+            </div>
+        </md-tab>
+        <md-tab label="تخصیص">
+            <md-content class="md-padding">
+                <div layout="column" layout-align="center center" layout-wrap>
+                    <div>
+                        برای اینکه دو نفر هزمان روی یک کارت کار نکنند، قبل از اعمال تغییرات روی کارت‌ها، تعدادی از آن‌ها
+                        را به خود تخصیص دهید.
+                    </div>
+                    <md-input-container ng-if="username=='superuser'">
+                        <label>کاربر</label>
+                        <md-select ng-model="params.assignAssignee">
+                            <md-option ng-repeat="x in users" ng-value="x.username">{{x.username}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>گزاره برای تخصیص</label>
+                        <input ng-model="params.assignPredicate">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>تعداد برای تخصیص</label>
+                        <input ng-model="params.assignCount" type="number" step="1">
+                    </md-input-container>
+                    <div layout="row" layout-align="center center" layout-wrap>
+                        <md-button class="md-primary" ng-disabled="!params.assignCount"
+                                   ng-click="assign(false, params.assignAssignee, params.assignPredicate, params.assignCount)">
+                            تخصیص
+                        </md-button>
+                        <md-button class="md-primary" ng-disabled="!params.assignCount"
+                                   ng-click="assign(true, params.assignAssignee, params.assignPredicate, params.assignCount)">
+                            تخصیص و جستجو
+                        </md-button>
+                    </div>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab label="خروجی">
+            <md-content class="md-padding">
+                <div layout="column" layout-align="center center" layout-wrap>
+                    <div>
+                        خروجی فقط از روی جملات تأیید شده تولید می‌شود.
+                    </div>
+                    <div layout="row" layout-align="center center" layout-wrap>
+                        <md-button class="md-primary"
+                                   target="_blank"
+                                   ng-href="http://dmls.iust.ac.ir:8100/rest/v1/raw/export">
+                            خروجی
+                        </md-button>
+                    </div>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab label="گزاره‌ها">
+            <md-content class="md-padding">
+                <div layout="column" layout-align="center center" layout-wrap>
+                    <div>
+                        به خاطر زمان‌بر بودن عملیات آمار مربوط به گزاره‌ها، فقط در مواقع نیاز از این بخش استفاده کنید.
+                    </div>
+                    <md-button class="md-primary" ng-click="goPredicates(1)">فعال‌سازی</md-button>
+                    <div ng-if="predicates" layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                        <md-input-container>
+                            <label>گزاره</label>
+                            <input ng-model="predicateSearch.predicate">
+                        </md-input-container>
+                        <md-button class="md-primary" aria-label="قبلی" ng-disabled="predicates.pageNo==1"
+                                   ng-click="goPredicates(predicates.pageNo - 1)">قبلی
+                        </md-button>
+                        <md-input-container class="md-icon-float md-icon-right md-block">
+                            <input ng-change="goPredicates(predicates.pageNo)" ng-model="data.pageNo"
+                                   type="number" max="{{predicates.totalPages}}" min="0" step="1">
+                        </md-input-container>
+                        <md-button class="md-primary" aria-label="بعدی"
+                                   ng-disabled="predicates.pageNo==predicates.totalPages"
+                                   ng-click="goPredicates(predicates.pageNo + 1)">بعدی
+                        </md-button>
+                    </div>
+                    <div ng-if="predicates" layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                        <table>
+                            <tr>
+                                <th>گزاره</th>
+                                <th>تعداد</th>
+                                <th>تخصیص‌ها</th>
+                            </tr>
+                            <tr ng-repeat="x in predicates.content">
+                                <td>
+                                    <md-button class="md-primary"
+                                               ng-click="params.st=0;params.predicate=x.predicate;go(1)">
+                                        {{x.predicate}}
+                                    </md-button>
+                                </td>
+                                <td>{{x.count}}</td>
+                                <td ng-if="x.assignees" dir="ltr" style="padding: 5px">
+                                    <div ng-repeat="y in x.assignees" style="padding-left: 5px">
+                                        <span ng-if="y.username">{{y.username}}</span>
+                                        <span ng-if="!y.username">unassigned</span>
+                                        <span>({{y.count}})</span>
+                                    </div>
+                                </td>
+                                <td ng-if="!x.assignees" style="padding: 5px">
+                                    <md-button class="md-primary"
+                                               ng-click="assigneeCount($index)">
+                                        محاسبه
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-content>

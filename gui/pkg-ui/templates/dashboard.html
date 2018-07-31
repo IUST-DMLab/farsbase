@@ -1,0 +1,13 @@
+<div ng-controller="DashboardController">
+    <div ng-repeat="item in items track by $index">
+        <fieldset>
+            <legend>{{item.header}}</legend>
+            <span ng-repeat="link in item.links" class="dashboard-link">
+                <a class="link" ng-class="!link.url ? 'disabled' : ''" href="{{link.url}}" target="_blank">
+                    <img ng-src="./styles/images/{{item.icon}}.svg" alt="" class="">
+                    <span class="title">{{link.title}}</span>
+                </a>
+            </span>
+        </fieldset>
+    </div>
+</div>

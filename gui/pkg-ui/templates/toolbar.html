@@ -1,0 +1,24 @@
+<md-toolbar class="md-whiteframe-1dp" ng-controller="MainController">
+    <div class="md-toolbar-tools">
+        <div class="md-title">سیستم گراف دانش فارسی</div>
+
+        <span flex=""></span>
+        <md-menu md-offset="-50 40">
+            <md-button aria-label="user menu" class="" ng-click="$mdMenu.open($event)">
+                <span class="fa fa-lg fa-user"></span>
+                <span>({{username}})</span>
+            </md-button>
+            <md-menu-content width="4" style="direction: rtl;">
+                <md-menu-item>
+                    <md-button class="right" ui-sref="user.profile">پروفایل</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button class="right" ui-sref="user.password">تغییر کلمه‌عبور</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+
+        <md-button ng-click="logout($event)">خروج</md-button>
+    </div>
+</md-toolbar>
+<div ncy-breadcrumb></div>

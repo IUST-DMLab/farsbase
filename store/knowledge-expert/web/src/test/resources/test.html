@@ -1,0 +1,23 @@
+<html>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js'></script>
+<body ng-app='myApp' ng-controller='myCtrl as ctrl'>
+<span>Your token: {{ctrl.authToken}}</span><br/>
+<span>Your roles: {{ctrl.roles}}</span><br/>
+</body>
+<script type='text/javascript'>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($http) {
+        var self = this;
+        self.authToken = 'not ready';
+        self.roles = [];
+
+        $http.get('http://localhost:8092/services/rs/v1/experts/login', {
+            headers: {'Authorization': 'Basic ' + btoa('superuser:superuser')}
+        }).then(function (response) {
+            self.authToken = response.headers('x-auth-token');
+            self.roles = response.data;
+        });
+    });
+
+</script>
+</html>

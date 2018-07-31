@@ -1,0 +1,68 @@
+<form name="myForm" ng-submit="$event.preventDefault()">
+    <div role="dialog" aria-label="" layout="column" layout-align="center center">
+        <md-toolbar>
+            <div class="md-toolbar-tools rtl">
+                <h5>{{action.title}}</h5>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="close()">
+                    <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <div class="dialog-panel-content scroll2" layout-margin style="height: 180px;">
+
+            <md-autocomplete class="ltr left"
+                             md-input-name="autocompletePredicate"
+                             md-selected-item="model.predicate"
+                             md-search-text="searchPredicate"
+                             md-items="item in suggestPredicates(searchPredicate)"
+                             md-require-match="false"
+                             md-item-text="item"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             ng-required="true"
+                             md-floating-label="predicate"
+                             required>
+                <md-item-template>
+                    <span md-highlight-text="searchPredicate" md-highlight-flags="^i">{{item}}</span>
+                </md-item-template>
+                <md-not-found>No predicate matching.</md-not-found>
+            </md-autocomplete>
+
+            <br>
+
+            <md-autocomplete class="ltr left"
+                             md-input-name="autocompleteClass"
+                             md-selected-item="model.constant"
+                             md-search-text="searchClass"
+                             md-items="item in suggestClasses(searchClass)"
+                             md-item-text="item"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             md-require-match
+                             ng-required="true"
+                             md-floating-label="constant"
+                             required>
+                <md-item-template>
+                    <span md-highlight-text="searchClass" md-highlight-flags="^i">{{item}}</span>
+                </md-item-template>
+                <md-not-found>No constant matching.</md-not-found>
+            </md-autocomplete>
+        </div>
+
+        <div layout="row" class="rtl">
+            <md-button type="submit"
+                       aria-label="ذخیره"
+                       class="md-raised md-primary"
+                       ng-disabled="myForm.$invalid"
+                       ng-click="save()">ذخیره
+            </md-button>
+
+            <md-button class="md-raised"
+                       ng-click="close()"
+                       aria-label="انصراف">انصراف
+            </md-button>
+        </div>
+    </div>
+</form>

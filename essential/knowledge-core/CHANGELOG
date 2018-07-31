@@ -1,0 +1,5 @@
+* 1.0.1
+    - some new transforms has been added by mr.abdous
+    - add date to the valid data types
+* 1.0.0
+    - Add transformer and scanners

@@ -1,0 +1,14 @@
+<div role="dialog" aria-label="" layout="column" layout-align="center center" class="rtl" dir="rtl">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4>{{selectedItem.id | mapPrefix}}</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()">
+                <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div class="dialog-panel-content scroll2">
+        <div ng-include="'./templates/reports/triples-grid.html'"></div>
+    </div>
+</div>

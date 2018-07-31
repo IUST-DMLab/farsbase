@@ -1,0 +1,5 @@
+classis
+regnum
+genus
+ordo
+familia

@@ -1,0 +1,70 @@
+<div role="dialog" aria-label="" layout="column" layout-align="center center" class="rtl" dir="rtl">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4>فیدبک</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()">
+                <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <div class="dialog-panel-content scroll2">
+
+        <div layout="column">
+            <table class="simple" cellspacing="0" cellpadding="15">
+                <tbody>
+                <tr>
+                    <td class="label" style="width: 80px;">نام :</td>
+                    <td>{{item.name}}</td>
+                </tr>
+                <tr>
+                    <td class="label">ایمیل :</td>
+                    <td>{{item.email}}</td>
+                </tr>
+                <tr>
+                    <td class="label">زمان ارسال :</td>
+                    <td>{{item.sendTime | shamsiDate | persianNumbers}}</td>
+                </tr>
+                <tr>
+                    <td class="label">پرس و جو :</td>
+                    <td>{{item.query}}</td>
+                </tr>
+                <tr>
+                    <td class="label">توضیحات :</td>
+                    <td>{{item.text}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <md-input-container>
+                <label>یادداشت : </label>
+                <textarea ng-model="item.note"/>
+            </md-input-container>
+
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="item.approved" aria-label="approved"
+                             style="color:darkgray; margin-left: 50px;">approved
+                </md-checkbox>
+
+                <md-checkbox ng-model="item.done" aria-label="done"
+                             style="color:darkgray; margin-left: 50px;">done
+                </md-checkbox>
+            </div>
+
+
+        </div>
+
+        <div layout-margin>
+            <md-button class="md-raised md-primary"
+                       ng-click="save($event);">ذخیره
+            </md-button>
+            <md-button class="md-raised"
+                       ng-click="cancel($event);">انصراف
+            </md-button>
+        </div>
+
+    </div>
+</div>
+
+

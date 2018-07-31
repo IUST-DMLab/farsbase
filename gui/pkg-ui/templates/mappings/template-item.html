@@ -1,0 +1,143 @@
+<div role="dialog" aria-label="" layout="column" layout-align="center center" class="rtl" dir="rtl">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4>{{selectedTemplate.template}}</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()">
+                <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <div class="dialog-panel-content scroll2">
+        <h3>تعیین ثابت‌ها</h3>
+        <table class="simple" cellspacing="0" cellpadding="0">
+            <thead>
+            <tr>
+                <th>predicate</th>
+                <th>constant</th>
+                <th style="width: 120px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rule in selectedTemplate.rules track by $index" class="clickable">
+                <td><span>{{rule.predicate}}</span></td>
+                <td>
+                    <a ng-if="!rule.constant.startsWith('fkgo:')"
+                       target="_blank"
+                       ng-href="{{rule.constant}}">{{rule.constant | mapPrefix}}</a>
+
+                    <a ng-if="rule.constant.startsWith('fkgo:')"
+                       ui-sref="ontology.property({propertyUrl:getFKGOpropertyUrl(rule.constant)})"
+                       target="_blank">
+                       <!--ui-sref="ontology.property({propertyUrl:'http://fkg.iust.ac.ir/ontology/{{rule.constant.replace('fkgo:', '')}}'})"-->
+                        {{rule.constant | mapPrefix}}
+                    </a>
+                </td>
+                <td>
+                    <md-button class="md-icon-button"
+                               ng-click="editConstant($event, rule);"
+                               aria-label="editing">
+                        <md-icon class="fa fa-lg fa-edit"></md-icon>
+                    </md-button>
+
+                    <md-button class="md-icon-button"
+                               ng-click="removeConstant($event, rule);"
+                               aria-label="detaching">
+                        <md-icon class="fa fa-lg fa-remove red"></md-icon>
+                    </md-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <md-button class="md-raised md-primary"
+                   ng-click="editConstant($event);">افزودن ثابت جدید
+        </md-button>
+
+        <br><br>
+
+        <h3>نگاشت خصیصه‌ها</h3>
+        <table cellspacing="0" cellpadding="0" class="simple">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th style="width: 30px;"></th>
+                <th style="width: 120px;">خصیصه</th>
+                <th style="width: 30px;"></th>
+
+                <th>گزاره</th>
+                <th style="width: 120px;">unit</th>
+                <th style="width: 120px;">transform</th>
+                <th style="width: 60px;">تایید</th>
+                <th style="width: 220px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat='property in selectedTemplate.properties track by $index' class="light">
+                <td>{{$index + 1 | persianNumbers}}</td>
+                <td>
+                    <span class="fa fa-lg fa-info-circle filter-property button"
+                          ng-click="filterProperty($event, property)"></span>
+                </td>
+                <td><span style="white-space: nowrap;">{{property.property}}</span></td>
+                <td>
+                    <span ng-click="addNewRule($event, property)"
+                          class="fa fa-plus button" title="add new rule"
+                          style="margin: 0 10px 0 0;"></span>
+                </td>
+                <td colspan="5" style="padding: 5px;">
+                    <table cellspacing="0" cellpadding="0" class="custom" style="width:100%;">
+                        <tr ng-repeat="rr in property.list track by $index">
+                            <td style="width: 25px;">
+                                <span ng-if="property.list.length>1">{{$index + 1 | persianNumbers}}</span>
+                            </td>
+                            <td>
+                                <!--<span ng-if="!rr.predicate.startsWith('fkgo:')">{{rr.predicate | mapPrefix}}</span>-->
+
+                                <a ng-if="!rr.predicate.startsWith('fkgo:')"
+                                   target="_blank"
+                                   ng-href="{{rr.predicate}}">{{rr.predicate | mapPrefix}}</a>
+
+                                <a ng-if="rr.predicate.startsWith('fkgo:')"
+                                   ui-sref="ontology.property({propertyUrl:getFKGOpropertyUrl(rr.predicate)})"
+                                   target="_blank">
+                                   <!--ui-sref="ontology.property({propertyUrl:'http://fkg.iust.ac.ir/ontology/{{rr.predicate.replace('fkgo:', '')}}'})"-->
+                                    {{rr.predicate | mapPrefix}}</a>
+                            </td>
+                            <td style="width: 120px;">
+                                <span>{{rr.unit | extractLastUrlItem}}</span>
+                            </td>
+                            <td style="width: 120px;">
+                                <span ng-if="rr.transform && rr.transform.transform">{{rr.transform.transform}}</span>
+                                <span ng-if="rr.transform && !rr.transform.transform">{{rr.transform}}</span>
+                            </td>
+                            <td style="width: 60px;">
+                                <md-checkbox ng-model="rr.valid" ng-disabled="true" aria-label="تایید"></md-checkbox>
+                            </td>
+                            <td style="width: 220px; white-space: nowrap;">
+                                <md-button class="md-raised md-primary"
+                                           ng-click="approveRule($event, property, rr, $index);"
+                                           aria-label="تایید">
+                                    تایید
+                                </md-button>
+                                <md-button class="md-icon-button"
+                                           ng-click="editRule($event, property, rr, $index);"
+                                           aria-label="ویرایش">
+                                    <md-icon class="fa fa-lg fa-edit"></md-icon>
+                                </md-button>
+
+                                <md-button class="md-icon-button"
+                                           ng-click="removeRule($event, property, rr, $index);"
+                                           aria-label="remove-property">
+                                    <md-icon class="fa fa-lg fa-remove red"></md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

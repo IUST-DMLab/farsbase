@@ -1,0 +1,31 @@
+<table ng-if="data.ontologies" class="simple" style="width: 100%;">
+    <thead>
+    <tr>
+        <th style="width: 5%;">#</th>
+        <th style="width: 30%;">گزاره</th>
+        <th style="width: 65%;">مقدار</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat='ontology in data.ontologies' class="line">
+        <td style="vertical-align: top;">{{($index)+1 | persianNumbers}}</td>
+        <td class="rtl" style="vertical-align: top;">
+            <a href="{{ontology.item.predicate}}">{{ontology.item.predicate | mapPrefix}}</a>
+        </td>
+        <td class="rtl">
+
+            <div ng-repeat='value in ontology.values'>
+                <div ng-class="value.object.lang==='en' ? 'ltr' : ''">
+                    <span ng-if="value.object.lang!=='fa'" class="small-text text-nowrap">({{value.object.lang}})</span>
+                    <a ng-if="value.object.type==='Resource'"
+                       href="{{value.object.value}}"
+                       rel="noreferrer">{{value.object.value | mapPrefix}}</a>
+                    <span ng-if="value.object.type==='String'">{{value.object.value}}</span>
+                    <span ng-if="value.object.lang==='fa'" class="small-text text-nowrap">({{value.object.lang}})</span>
+                </div>
+            </div>
+
+        </td>
+    </tr>
+    </tbody>
+</table>

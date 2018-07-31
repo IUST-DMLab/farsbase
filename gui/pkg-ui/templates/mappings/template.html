@@ -1,0 +1,103 @@
+<md-content layout-margin ng-show="loaded">
+
+    <!--<form ng-submit="load()" autocomplete="off">-->
+    <div layout-gt-md="row" layout-xs="column">
+        <div layout="row">
+            <md-input-container>
+                <label>الگوی ویکی‌پدیا : </label>
+                <input type="text" ng-model="query.templateName"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.templateNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
+
+            <md-input-container>
+                <label>کلاس هستان‌شناسی: </label>
+                <input type="text" ng-model="query.className"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.classNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
+        </div>
+
+        <div layout="row">
+            <md-input-container>
+                <label>خصیصه ویکی‌پدیا : </label>
+                <input type="text" ng-model="query.propertyName"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.propertyNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
+
+            <md-input-container>
+                <label>گزاره هستان‌شناسی</label>
+                <input type="text" ng-model="query.predicateName"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.predicateNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
+        </div>
+    </div>
+
+    <div layout="row" layout-align="right center">
+        <md-input-container style=" margin-left: 50px;">
+            <label>approved</label>
+            <md-select ng-model="query.approved">
+                <md-option value=""><em>None</em></md-option>
+                <md-option value="true"><em>True</em></md-option>
+                <md-option value="false"><em>False</em></md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-button class="md-primary md-raised" ng-click="load();">بیاب</md-button>
+
+        <div layout-align="left center" flex>
+            <cl-paging flex
+                       cl-pages="paging.pageCount"
+                       cl-steps="6"
+                       cl-page-changed="onPageChanged()"
+                       cl-align="center center"
+                       cl-current-page="paging.current">
+            </cl-paging>
+        </div>
+    </div>
+
+    <md-divider></md-divider>
+    <div style="color: #888;padding-top: 10px;text-align: center;">
+        صفحه {{paging.current | persianNumbers}} از {{paging.pageCount | persianNumbers}} - تعداد کل آیتم‌ها {{paging.totalSize | persianNumbers}}
+    </div>
+    <md-divider></md-divider>
+
+    <table class="simple" cellspacing="0" cellpadding="5">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>عنوان الگو</th>
+            <th>تراگنجایش</th>
+            <th>کلاس هستان‌شناسی</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in templates track by $index" class="clickable">
+            <td ng-click="showTemplate($event, templates, $index);">{{(paging.pageIndex * paging.pageSize + $index) + 1
+                | persianNumbers}}
+            </td>
+            <td ng-click="showTemplate($event, templates, $index);">{{item.template}}</td>
+            <td ng-click="showTemplate($event, templates, $index);">{{item.weight | persianNumbers}}</td>
+            <td ng-click="showTemplate($event, templates, $index);"></td>
+        </tr>
+        </tbody>
+    </table>
+</md-content>
+
+<md-content ng-show="err">
+    <h1 style="text-align: center; color: red;">خطایی رخ داده است!</h1>
+</md-content>

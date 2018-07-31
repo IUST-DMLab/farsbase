@@ -1,0 +1,59 @@
+<md-dialog aria-label="Edit" style="direction:rtl;">
+    <form name="Form" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 ng-if="!newUser">ویرایش</h2>
+                <h2 ng-if="newUser">ایجاد کاربر جدید</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content dir="rtl">
+            <div class="md-dialog-content">
+                <div layout="column">
+                    <md-input-container>
+                        <label>نام</label>
+                        <input type="text"
+                               name="u-name"
+                               ng-model="user.name"
+                               required
+                               ng-minlength="2"
+                               autocomplete="new-name">
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>نام کاربری</label>
+                        <input type="text" name="u-username"
+                               ng-model="user.username"
+                               required
+                               ng-minlength="2"
+                               autocomplete="new-username">
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>کلمه عبور</label>
+                        <input type="password"
+                               autocomplete="off"
+                               name="u-password"
+                               ng-model="user.password"
+                               ng-minlength="2">
+                    </md-input-container>
+
+                    <div layout="row" layout-wrap>
+                        <md-checkbox ng-repeat="prm in permissions"
+                                     ng-model="prm.selected">{{prm.title}}
+                        </md-checkbox>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button type="submit"
+                       class="md-raised md-primary"
+                       ng-disabled="Form.$invalid"
+                       ng-click="save();">ذخیره
+            </md-button>
+            <md-button class="md-raised" ng-click="cancel();">انصراف</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

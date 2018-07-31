@@ -1,0 +1,19 @@
+{
+  "mapperExecutable": "~/pkg/codes/mapper/runner/target",
+  "updaterLinkPath": "~/pkg/updater",
+  "runnerUrl": "http://localhost:8089/rs",
+  "scanAddresses": [
+    {
+      "address": "~/scan/wiki",
+      "depth": 1
+    },
+    {
+      "address": "~/scan/raw",
+      "depth": 2
+    },
+    {
+      "address": "~/scan/table",
+      "depth": 2
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+<md-content layout-margin ng-show="loaded">
+
+    <div layout-xs="column" layout-gt-md="row">
+        <md-input-container>
+            <label>پرس و جو</label>
+            <input type="text" ng-model="query.queryKeyword"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>توضیحات</label>
+            <input type="text" ng-model="query.textKeyword"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>از تاریخ</label>
+            <!--<md-datepicker ng-model="query.minSendDate" aria-label="از تاریخ"></md-datepicker>-->
+            <md-persian-datepicker ng-model="query.minSendDate" aria-label="از تاریخ"></md-persian-datepicker>
+        </md-input-container>
+
+        <md-input-container>
+            <label>تا تاریخ</label>
+            <!--<md-datepicker ng-model="query.maxSendDate" aria-label="تا تاریخ"></md-datepicker>-->
+            <md-persian-datepicker ng-model="query.maxSendDate" aria-label="از تاریخ"></md-persian-datepicker>
+        </md-input-container>
+
+        <div layout="row">
+            <md-input-container>
+                <label>approved</label>
+                <md-select ng-model="query.approved">
+                    <md-option value=""><em>None</em></md-option>
+                    <md-option value="true"><em>True</em></md-option>
+                    <md-option value="false"><em>False</em></md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container>
+                <label>done</label>
+                <md-select ng-model="query.done">
+                    <md-option value=""><em>None</em></md-option>
+                    <md-option value="true"><em>True</em></md-option>
+                    <md-option value="false"><em>False</em></md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+
+        <md-input-container>
+            <md-button class="md-primary md-raised" ng-click="load();">بیاب</md-button>
+        </md-input-container>
+    </div>
+
+    <div layout="row" layout-align="right center" style="margin: -40px 0 0 0;">
+        <div layout-align="left center" flex>
+            <cl-paging flex
+                       cl-pages="paging.pageCount"
+                       cl-steps="6"
+                       cl-page-changed="onPageChanged()"
+                       cl-align="center center"
+                       cl-current-page="paging.current">
+            </cl-paging>
+        </div>
+    </div>
+
+    <md-divider></md-divider>
+    <div style="color: #888;padding-top: 10px;text-align: center;">
+        صفحه
+        {{paging.current | persianNumbers}}
+        از{{paging.pageCount | persianNumbers}} - تعداد کل آیتم‌ها {{paging.totalSize | persianNumbers}}
+    </div>
+    <md-divider></md-divider>
+
+    <table class="simple" cellspacing="0" cellpadding="10">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>نام</th>
+            <th>پرس و جو</th>
+            <th>توضیحات</th>
+            <th>زمان ارسال</th>
+            <th>approved</th>
+            <th>done</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in items track by $index" ng-class="{even: $even, odd: $odd}" class="clickable"
+            ng-click="showItem(item, $event);">
+            <td>{{(paging.pageIndex * paging.pageSize + $index)+1  | persianNumbers}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.query}}</td>
+            <td>{{item.text.length<200 ? item.text : item.text.substring(0, 180)+'...'}}</td>
+            <td class="nowrap">{{item.sendTime | shamsiDate | persianNumbers}}</td>
+            <td>{{item.approved}}</td>
+            <td>{{item.done}}</td>
+        </tr>
+        </tbody>
+    </table>
+</md-content>
+
+<md-content ng-show="err">
+    <h1 style="text-align: center; color: red;">خطایی رخ داده است!</h1>
+</md-content>

@@ -1,0 +1,67 @@
+<div ng-include="'./templates/toolbar.html'"></div>
+<!--<div ui-view></div>-->
+<div dir="rtl">
+
+    <md-content style="margin: 16px; padding:16px"
+                ng-repeat="item in data.items track by $index">
+
+        <hr style="border-bottom: solid 2px #aaa;">
+
+        <table cellpadding="5" cellspacing="0" class="simple" style="width: 100%;">
+            <tr>
+                <td class="label" style="width: 200px; font-weight: bold;">عنوان :</td>
+                <td>{{item.title}}</td>
+            </tr>
+            <tr>
+                <td class="label">پیشرفت :</td>
+                <td style="vertical-align: middle;" layout="row">
+                    <span style="padding: 0 0 0 10px;">{{item.progress | persianNumbers}}%</span>
+                    <md-progress-linear style="margin-top: 8px;"
+                                        md-mode="determinate"
+                                        value="{{item.progress}}"></md-progress-linear>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">تاریخ ساخت :</td>
+                <td>{{item.creationEpoch | shamsiDateTime | persianNumbers}}</td>
+            </tr>
+            <tr>
+                <td class="label">تعداد سعی‌های باقی‌مانده :</td>
+                <td>{{item.remindedTryCount | persianNumbers}} از {{item.definition.maxTryCount | persianNumbers}}</td>
+            </tr>
+            <tr>
+                <td class="label">تاریخ انقضا :</td>
+                <td>{{item.validUntilEpoch | shamsiDateTime | persianNumbers}}</td>
+            </tr>
+            <tr>
+                <td class="label">زمان شروع :</td>
+                <td>{{item.startEpoch | shamsiDateTime | persianNumbers}}</td>
+            </tr>
+            <tr>
+                <td class="label">زمان پایان :</td>
+                <td>{{item.endEpoch | shamsiDateTime | persianNumbers}}</td>
+            </tr>
+            <tr>
+                <td class="label">وضعیت :</td>
+                <td>{{item.state}}</td>
+            </tr>
+<!--
+            <tr>
+                <td class="label">definition creationEpoch :</td>
+                <td>{{item.definition.creationEpoch | shamsiDateTime | persianNumbers}}</td>
+            </tr>
+-->
+<!--
+            <tr>
+                <td class="label">بیشترین تعداد تلاش برای اجرا :</td>
+                <td>{{item.definition.maxTryCount | persianNumbers}}</td>
+            </tr>
+-->
+            <tr>
+                <td class="label">بیشترین زمان برای اجرای صحیح :</td>
+                <td>{{item.definition.maxTryDuration | persianNumbers}}</td>
+            </tr>
+        </table>
+
+    </md-content>
+</div>

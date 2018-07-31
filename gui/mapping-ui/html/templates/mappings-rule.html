@@ -1,0 +1,15 @@
+<td>{{r.property}}</td>
+<td>
+    <!--<input type="text" ng-model="r.predicate"/>-->
+    <input type="text"
+           ng-model="r.predicate"
+           placeholder="predicate"
+           auto-complete="autoCompleteOptions" />
+</td>
+<td>
+    <input type="text" ng-model="r.constant"/></td>
+<td>{{r.unit}}</td>
+<td>{{r.transform}}</td>
+<td>
+    <input type="checkbox" ng-model="r.valid" ng-if="r.editable">
+</td>

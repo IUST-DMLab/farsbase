@@ -1,0 +1,40 @@
+<config xmlns='http://www.ehcache.org/v3'
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
+  <cache alias="getParent">
+    <expiry>
+      <ttl>3600</ttl>
+    </expiry>
+    <heap>100000</heap>
+  </cache>
+  <cache alias="getChildren">
+    <expiry>
+      <ttl>3600</ttl>
+    </expiry>
+    <heap>100000</heap>
+  </cache>
+  <cache alias="getClassInfo">
+    <expiry>
+      <ttl>3600</ttl>
+    </expiry>
+    <heap>100000</heap>
+  </cache>
+  <cache alias="getEntityInfo">
+    <expiry>
+      <ttl>3600</ttl>
+    </expiry>
+    <heap>100000</heap>
+  </cache>
+  <cache alias="getEntityClasses">
+    <expiry>
+      <ttl>3600</ttl>
+    </expiry>
+    <heap>100000</heap>
+  </cache>
+  <cache alias="getEntitiesOfClass">
+    <expiry>
+      <ttl>3600</ttl>
+    </expiry>
+    <heap>100000</heap>
+  </cache>
+</config>

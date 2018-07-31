@@ -1,0 +1,37 @@
+<md-content layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak"
+            class="login-form">
+    <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2><span>ورود به سیستم گراف دانش</span></h2>
+            </div>
+        </md-toolbar>
+        <md-card-content>
+            <form name="Form" ng-submit="login(username, password)" novalidate>
+                <md-input-container class="md-block">
+                    <label>نام‌کاربری</label>
+                    <input type="text" name="username" ng-model="username" required placeholder="نام‌کاربری"/>
+
+                    <div ng-messages="Form.username.$invalid" role="alert" multiple="">
+                        <div ng-message="required" class="my-message">لطفا نام‌کاربری را وارد کنید!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>کلمه عبور</label>
+                    <input type="password" name="password" ng-model="password" required
+                           placeholder="کلمه عبور"/>
+
+                    <div ng-messages="Form.password.$invalid" role="alert" multiple="">
+                        <div ng-message="required" class="my-message">لطفا کلمه عبور را وار نمایید</div>
+                    </div>
+                </md-input-container>
+                <md-button type="submit"
+                           ng-disabled="Form.$invalid"
+                           ng-click="login(username, password)"
+                           class="md-raised md-primary">ورود
+                </md-button>
+                <div style="color: red;">{{error.error}}</div>
+            </form>
+        </md-card-content>
+    </md-card>
+</md-content>

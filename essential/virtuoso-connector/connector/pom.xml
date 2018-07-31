@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>ir.ac.iust.dml.kg.vituoso</groupId>
+  <artifactId>connector</artifactId>
+  <version>0.2.5</version>
+  <name>Knowledge Graph Virtuoso Connector</name>
+  <packaging>jar</packaging>
+
+  <properties>
+    <logback.version>1.1.3</logback.version>
+    <jcl.slf4j.version>1.7.12</jcl.slf4j.version>
+    <kotlin.version>1.1.1</kotlin.version>
+  </properties>
+
+  <distributionManagement>
+    <repository>
+      <id>central</id>
+      <name>38c51b48d203-releases</name>
+      <url>http://194.225.227.161:8083/artifactory/libs-release</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19.1</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>in-project-virtjdbc</id>
+      <name>In Project Repo for VirtJDBC</name>
+      <url>file://${project.basedir}/lib</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>ir.ac.iust.dml.kg</groupId>
+      <artifactId>utils</artifactId>
+      <version>0.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.openlinksw.virtuoso</groupId>
+      <artifactId>virt_rdf4j</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.openlinksw.virtuoso</groupId>
+      <artifactId>virtjdbc</artifactId>
+      <version>4.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.rdf4j</groupId>
+      <artifactId>rdf4j-runtime</artifactId>
+      <version>2.1.6</version>
+    </dependency>
+  </dependencies>
+</project>

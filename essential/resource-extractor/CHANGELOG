@@ -1,0 +1,14 @@
+* 1.5.0
+    - Add AhoCorasickResourceExtractor
+* 1.3.0
+    - Do not use ambiguities and compute it from label
+    - Add ILabelConverter
+    - Add getResourceByIRI to resource extractor
+    - Add subsetOf
+
+* 1.2.0
+    - Add ResourceReaderFromVirtuoso to read from virtuoso
+    - Make resource cache reader parallel
+    - Add fst object serializer to increase performance
+* 1.1.0
+    - Add Resource cache

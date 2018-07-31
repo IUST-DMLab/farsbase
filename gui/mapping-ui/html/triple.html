@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app='kgui'>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+
+    <title>Knowledge Graph - Triple UI</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-rtl/dist/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-sanitize/angular-sanitize.js"></script>
+
+    <script type="text/javascript" src="../libs/jquery.growl/javascripts/jquery.growl.js"></script>
+    <link rel="stylesheet" type="text/css" href="../libs/jquery.growl/stylesheets/jquery.growl.css">
+
+    <script type="text/javascript" src="../node_modules/ng-tags-input/build/ng-tags-input.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/ng-tags-input/build/ng-tags-input.min.css">
+
+    <script type="text/javascript" src="../node_modules/angular-auto-complete/angular-auto-complete.js"></script>
+    <link rel="stylesheet" href="../node_modules/angular-auto-complete/angular-auto-complete.css"/>
+
+    <script type="text/javascript" src="../node_modules/angular-paging/dist/paging.min.js"></script>
+
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css"/>
+
+    <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+
+    <script type="text/javascript" src="../node_modules/lodash/lodash.min.js"></script>
+
+    <!---->
+
+    <script type="text/javascript" src="../scripts/date.js?v=13960719"></script>
+    <script type="text/javascript" src="../scripts/general.js?v=13960719"></script>
+
+    <script type="text/javascript" src="../scripts/app/app.js?v=13960719"></script>
+    <script type="text/javascript" src="../scripts/app/config.js?v=13960719"></script>
+    <script type="text/javascript" src="../scripts/app/service/rest.js?v=13960719"></script>
+    <script type="text/javascript" src="../scripts/app/controller/main.js?v=13960719"></script>
+
+    <link rel="stylesheet" href="../styles/main.css?v=13960719">
+</head>
+
+<body ng-controller="TripleController">
+<div ng-include="'templates/header.html'"></div>
+
+<div ng-if="data" class="container" id="body">
+
+    <div class="row">
+        <div class="col-xs-12 col-md-10">
+            <h1>
+                {{data.pageTitle}}
+            </h1>
+            <h4 style="color: gray;">
+                {{data.subTitle}}
+            </h4>
+        </div>
+        <div class="col-xs-12 col-md-2">
+            <div ng-if="data.pagePic" style="margin: 4px;">
+                <img ng-src="{{data.pagePic}}"
+                     style="max-width: 200px; max-height: 200px;"
+                     onerror="$(this).hide();"/>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="tabs">
+        <span data-tabId="0" class="tab active" ng-click="activateTab(0)">
+            <span class="tab-inner">پیش‌نمایش</span>
+        </span>
+        <span data-tabId="1" class="tab" ng-click="activateTab(1)">
+            <span class="tab-inner">نمایش نهایی</span>
+        </span>
+    </div>
+
+    <div class="panels">
+        <div data-tabId="0" class="panel active">
+            <!--  Resource  -->
+            <div ng-include="'templates/triple-resource.html'"></div>
+
+            <!--  Ontology  -->
+            <div ng-include="'templates/triple-ontology.html'"></div>
+        </div>
+        <div data-tabId="1" class="panel">
+            <!--  Virtuoso  -->
+            <div ng-include="'templates/triple-virtuoso.html'"></div>
+        </div>
+    </div>
+</div>
+
+<!--<div ng-include="'templates/footer.html'"></div>-->
+</body>
+
+</html>

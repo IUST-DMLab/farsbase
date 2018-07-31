@@ -1,0 +1,62 @@
+<div style="padding: 15px; background-color: #eee;">
+    <table cellpadding="0" cellspacing="0" style="width: 100%;">
+        <tr>
+            <td>
+                <div ng-if="entity.data.image">
+                    <img ng-src="{{entity.data.image}}"
+                         onerror="$(this).hide()"
+                         style="max-width: 145px; max-height: 210px;"/>
+                </div>
+            </td>
+            <td style="text-align: center;">
+                <div>
+                    <a ng-if="entity.link" href="{{entity.link}}" class="entity-title">{{entity.data.label}}</a>
+                    <span ng-if="!entity.link" class="entity-title">{{entity.data.label}}</span>
+                </div>
+                <div>
+                    <span class="entity-subtitle">{{entity.data.type}}</span>
+                </div>
+                <div>
+                    <br>
+                    <br>
+                    <a class="small-text" href="{{entity.data.wikiLink}}" target="_blank">(مشاهده در ویکیپدیا)</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="scroll1"
+     style="padding: 5px 5px; line-height:200%; margin-bottom: 10px; max-height: 200px; overflow-y: scroll">
+    <span class="entity-subtitle">{{entity.data.abstract}}</span>
+</div>
+<div>
+    <div ng-repeat="(key, values) in entity.data.properties" class="entity-property">
+        <div style="background-color: #dddddd; padding: 2px;" class="key">{{key}}</div>
+        <span ng-repeat="item in values">
+            <img ng-if="item.value.image"
+                 ng-src="{{item.value.url || ''}}"
+                 onerror="$(this).hide()"
+                 style="max-width: 120px; max-height: 120px;"/>
+            <span ng-if="!item.value.image">
+                <a class="value"
+                   ng-if="item.value.url && item.value.url.startsWith('http://fkg.iust.ac.ir')"
+                   ng-class="!isEmpty(item.moreInfo) ? 'center' : ''"
+                   ng-href="#?keyword={{item.value.value}}">{{item.value.value}}</a>
+                <span class="value"
+                      ng-if="!item.value.url && !item.value.url.startsWith('http://fkg.iust.ac.ir')"
+                      ng-class="!isEmpty(item.moreInfo) ? 'center' : ''">
+                    {{item.value.value}}
+                </span>
+
+                <span ng-if="isEmpty(item.moreInfo) && !$last">،</span>
+                <div ng-if="!isEmpty(item.moreInfo)" style="border-bottom: solid 1px #ddd;">
+                    <div ng-repeat="(moreKey, moreItem) in item.moreInfo" style="margin-bottom: 10px;">
+                        <span class="medium-text">{{moreKey}}</span><span style="color: #888;" class="medium-text"> :  {{moreItem.value.value}}</span>
+                        <br ng-if="$last"/>
+                        <span ng-if="!$last"> </span>
+                    </div>
+                </div>
+            </span>
+        </span>
+    </div>
+</div>

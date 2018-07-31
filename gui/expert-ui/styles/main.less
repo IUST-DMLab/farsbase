@@ -1,0 +1,162 @@
+@import "fonts";
+
+*, input {
+  font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 10pt;
+}
+
+body {
+  //direction: rtl;
+}
+
+.ltr {
+  direction: ltr;
+}
+
+.rtl {
+  direction: rtl;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+thead tr {
+  background-color: #d9edf7;
+}
+
+.odd {
+  background-color: #f8f8f8;
+}
+
+.even {
+  background-color: #e8e8e8;
+}
+
+.center {
+  text-align: center;
+}
+
+.entity {
+  border: solid 1px lightgray;
+  border-radius: 2px;
+  margin: 2px 0;
+  padding: 2px;
+}
+
+.title {
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+.subtitle {
+  color: grey;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.description {
+  color: #262626;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.key {
+  color: #122b40;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.value {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.image-container {
+  float: right;
+  margin: 10px 0 10px 10px;
+
+  img {
+    border: none;
+    width: 150px;
+  }
+}
+
+div.block-screen {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: white;
+  opacity: 0.7;
+}
+
+.btn {
+  font-size: 12px;
+}
+
+/**/
+.loading {
+  direction: rtl;
+  position: fixed;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 2200;
+
+  span {
+    background: -moz-linear-gradient(center bottom, #fef1d1 0pt, #fdebbd 100%) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left bottom, left top, from(#fef1d1), to(#fdebbd));
+    color: #000;
+    border-radius: 4px;
+    font-family: tahoma;
+    font-size: 10px;
+    padding: 5px;
+    border: solid 1px #ddad4e;
+    box-shadow: 0 0 4px 0px #ddd;
+    margin: 0 auto;
+  }
+}
+
+.cell {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 300px;
+  display: block;
+}
+
+/**/
+.login-form {
+  md-card {
+    padding: 0 !important;
+    box-shadow: 0 0 20px 2px #aaa;
+
+    md-card-title {
+      background-color: blue;
+    }
+  }
+}
+
+md-icon svg {
+  fill: inherit;
+}
+
+md-sidenav,
+md-sidenav.md-locked-open,
+md-sidenav.md-closed.md-locked-open-add-active {
+  min-width: 500px !important;
+  width: 500px !important;
+  max-width: 500px !important;
+}
+
+
+md-dialog .md-dialog-content {
+  direction: rtl;
+}

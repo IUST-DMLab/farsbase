@@ -1,0 +1,138 @@
+<div role="dialog" aria-label="" layout="column" layout-align="center center" class="rtl" dir="rtl">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4>{{property.property}}</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()">
+                <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <div ng-show="loaded" class="dialog-panel-content scroll2">
+        <table class="simple" cellspacing="0" cellpadding="2">
+            <thead>
+            <tr>
+                <th>
+                    <md-checkbox aria-label="Select All"
+                                 ng-checked="isChecked()"
+                                 md-indeterminate="isIndeterminate()"
+                                 ng-click="toggleAll()">
+                        <span ng-if="isChecked()"></span>
+                    </md-checkbox>
+                </th>
+                <th>خصیصه</th>
+                <th>الگو</th>
+                <th>گزاره</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in filteredTemplates track by $index"
+                ng-class="{even: $even, odd: $odd}"
+                class="clickable" ng-cloak>
+                <td>
+                    <md-checkbox ng-checked="exists(item, selected)"
+                                 ng-click="toggle(item, selected)"
+                                 aria-label="select">
+                    </md-checkbox>
+                </td>
+                <td><span>{{property.property}}</span></td>
+                <td><span>{{item.template}}</span></td>
+                <td>
+                    <div ng-repeat="p in item.properties | filter:{property: property.property}:true track by $index">
+                        <div ng-repeat="r in p.rules track by $index">
+                            {{r.predicate}}
+                        </div>
+                        <div ng-if="p.rules.length===0">
+                            X
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-show="loaded" style="border-top: solid 1px #ddd; width: 100%;">
+        <div layout="row" layout-align="center center" class="rtl layout-margin" style="padding: 0 0 10px 0;">
+
+            <!--predicate-->
+            <md-autocomplete class="rtl right" dir="rtl"
+                             md-input-name="autocompletePredicate"
+                             md-selected-item="selectedPredicate"
+                             md-search-text="searchPredicate"
+                             md-items="item in suggestPredicates(searchPredicate)"
+                             md-item-text="item"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             md-require-match
+                             md-floating-label="predicate" aria-label="predicate">
+                <md-item-template>
+                    <span md-highlight-text="searchPredicate" md-highlight-flags="^i">{{item}}</span>
+                </md-item-template>
+                <md-not-found>No predicate matching.</md-not-found>
+            </md-autocomplete>
+
+            <!--unit-->
+            <md-autocomplete class="rtl right" dir="rtl"
+                             md-input-name="autocompleteUnit"
+                             md-selected-item="selectedUnit"
+                             md-search-text="searchUnit"
+                             md-items="item in suggestUnits(searchUnit)"
+                             md-item-text="item | extractLastUrlItem"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             md-require-match
+                             md-floating-label="unit" aria-label="unit">
+                <md-item-template>
+                        <span md-highlight-text="searchUnit"
+                              md-highlight-flags="^i">{{item | extractLastUrlItem}}</span>
+                </md-item-template>
+                <md-not-found>No unit matching.</md-not-found>
+            </md-autocomplete>
+            <br>
+
+            <!--transform-->
+            <md-autocomplete class="rtl right" dir="rtl"
+                             md-input-name="autocompleteTransform"
+                             md-selected-item="selectedTransform"
+                             md-search-text="searchTransform"
+                             md-items="item in suggestTransforms(searchTransform)"
+                             md-item-text="item.label"
+                             md-input-minlength="0"
+                             md-min-length="0"
+                             md-delay="300"
+                             md-require-match
+                             md-floating-label="transform" aria-label="transform">
+                <md-item-template>
+                <span md-highlight-text="searchTransform"
+                      md-highlight-flags="^i">{{item.label}}({{item.transform}})</span>
+                </md-item-template>
+                <md-not-found>No transform matching.</md-not-found>
+            </md-autocomplete>
+
+
+        </div>
+    </div>
+
+    <div ng-show="loaded" style="border-top: solid 1px #ddd; width: 100%;">
+        <div layout="row" layout-align="center center" class="rtl" style="padding: 10px 0;">
+
+            <md-button type="submit"
+                       aria-label="نگاشت"
+                       class="md-raised md-primary"
+                       ng-disabled="myForm.$invalid"
+                       ng-click="save($index)">نگاشت
+            </md-button>
+
+            <md-button class="md-raised"
+                       ng-click="close()"
+                       aria-label="انصراف">انصراف
+            </md-button>
+        </div>
+    </div>
+
+    <div ng-show="!loaded">
+        در حال دریافت اطلاعات ...
+    </div>
+</div>

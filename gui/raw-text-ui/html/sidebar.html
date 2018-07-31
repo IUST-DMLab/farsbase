@@ -1,0 +1,38 @@
+<div ng-if="!username" style="text-align: center; width:100%">
+    برای استفاده از سامانه باید در
+    <a href="..">
+        سیستم احراز هویت
+    </a>
+    لاگین کنید.
+</div>
+<md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links" ng-if="username">
+    <div layout="row" layout-align="center center">
+        <div style="color:red; direction: rtl">
+            {{username}} عزیز، خوش آمدید
+        </div>
+    </div>
+    <md-nav-item md-nav-click="switch(null)" name="page1">
+        <md-icon md-colors="{color: 'black'}" md-svg-icon="menu:home"></md-icon>
+        خانه
+    </md-nav-item>
+    <md-nav-item md-nav-click="switch('triples')" name="page1">
+        <md-icon md-colors="{color: 'green'}" md-svg-icon="menu:triple"></md-icon>
+        سه تایی‌ها
+    </md-nav-item>
+    <md-nav-item md-nav-click="switch('rules')" name="page2">
+        <md-icon md-colors="{color: 'red'}" md-svg-icon="menu:rule"></md-icon>
+        تست و ذخیره سازی قوانین
+    </md-nav-item>
+    <md-nav-item md-nav-click="switch('patterns')" name="page3">
+        <md-icon md-colors="{color: 'blue'}" md-svg-icon="menu:pattern"></md-icon>
+        ذخیره‌سازی الگوهای وابستگی
+    </md-nav-item>
+    <md-nav-item md-nav-click="switch('fkgfy')" name="page4">
+        <md-icon md-colors="{color: 'brown'}" md-svg-icon="menu:entities"></md-icon>
+        تشخیص موجودیت
+    </md-nav-item>
+    <md-nav-item md-nav-click="switch('repository')" name="page5">
+        <md-icon md-colors="{color: 'purple'}" md-svg-icon="menu:repository"></md-icon>
+        گنجه متن خام (آزمایشی)
+    </md-nav-item>
+</md-nav-bar>

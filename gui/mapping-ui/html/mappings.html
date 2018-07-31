@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html ng-app='kgui'>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+
+    <title>Knowledge Graph - Mappings UI</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-sanitize/angular-sanitize.js"></script>
+
+    <script type="text/javascript" src="../libs/jquery.growl/javascripts/jquery.growl.js"></script>
+    <link rel="stylesheet" type="text/css" href="../libs/jquery.growl/stylesheets/jquery.growl.css">
+
+    <script type="text/javascript" src="../node_modules/ng-tags-input/build/ng-tags-input.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/ng-tags-input/build/ng-tags-input.min.css">
+
+    <script type="text/javascript" src="../node_modules/lodash/lodash.js"></script>
+
+    <script type="text/javascript" src="../node_modules/angular-auto-complete/angular-auto-complete.js"></script>
+    <link rel="stylesheet" href="../node_modules/angular-auto-complete/angular-auto-complete.css"/>
+
+    <script type="text/javascript" src="../node_modules/angular-paging/dist/paging.min.js"></script>
+
+    <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css"/>
+
+
+    <script type="text/javascript" src="../scripts/app/app.js"></script>
+    <script type="text/javascript" src="../scripts/app/config.js?v=13960715B"></script>
+    <script type="text/javascript" src="../scripts/app/service/rest.js"></script>
+    <script type="text/javascript" src="../scripts/app/controller/main.js"></script>
+
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body ng-controller="MappingsController">
+<div ng-include="'templates/header.html'"></div>
+
+<div class="container" style="direction: rtl; min-height: 450px;margin-bottom: 100px;">
+
+    <table ng-if="data.data" cellpadding="10" cellspacing="10" style="width: 760px; margin:0 auto;">
+        <tr>
+            <td>
+                <div paging
+                     page="data.pageNo"
+                     page-size="data.pageSize"
+                     total="data.totalSize"
+                     paging-action="go(page-1)">
+                </div>
+            </td>
+            <td>
+                <form ng-submit="go(data.searchPageNo-1)">
+                    صفحه:
+                    <input placeholder="page"
+                           ng-model="data.searchPageNo"
+                           style="width: 50px; border:solid 1px #ddd; height: 35px;">
+                </form>
+            </td>
+            <td>
+                <strong>
+                    تعداد کل : {{data.totalSize}}
+                </strong>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table" ng-if="data">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>مقدار</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat='a in data.data'>
+            <td>{{(data.page * data.pageSize + $index)+1}}</td>
+            <td class="link" ng-click="show(a)">{{a.template}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div id="mapping" style="display: none;">
+    <span class="fa fa-lg fa-close close" ng-click="hide();"></span>
+
+    <div style=" padding: 15px;">
+        <div>
+            <h3>{{selectedItem.template}}</h3>
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>property</th>
+                    <th>predicate</th>
+                    <th>constant</th>
+                    <th>unit</th>
+                    <th>transform</th>
+                    <th>تایید</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-repeat='r in selectedItem.rules' ng-include="'templates/mappings-rule.html'"></tr>
+
+                <tr ng-repeat='r in selectedItemPropertyRules' ng-include="'templates/mappings-rule.html'"></tr>
+
+                <tr ng-repeat='r in selectedItemPropertyRecommendations' ng-include="'templates/mappings-rule.html'"></tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <button type="button" ng-click="save();">ذخیره</button>
+            <button type="button" ng-click="hide();">انصراف</button>
+        </div>
+    </div>
+</div>
+
+<!--<div ng-include="'templates/footer.html'"></div>-->
+</body>
+
+</html>

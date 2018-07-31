@@ -1,0 +1,13 @@
+<div class="relational-item-large">
+    <div class="image-container">
+        <img ng-if="entity.photoUrls.length" ng-src="{{entity.photoUrls[0]}}" onerror="$(this).hide()"/>
+        <img ng-if="!entity.photoUrls.length" ng-src="../styles/images/no-image-slide.webp"/>
+    </div>
+    <a class="relational-title fix-text" ng-if="entity.link" href="{{entity.link}}">{{entity.title}}</a>
+    <span class="relational-title fix-text" ng-if="!entity.link">{{entity.title}}</span>
+    <span class="relational-subtitle fix-text">{{entity.subtitle}}</span>
+
+    <div class="key-value-container"
+         ng-include="'templates/entity-keyValues.html'"></div>
+
+</div>

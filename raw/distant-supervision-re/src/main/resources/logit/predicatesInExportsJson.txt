@@ -1,0 +1,93 @@
+country
+leader
+capital
+occupation
+زمینه فعالیت
+زبان رسمی
+سکوها
+language
+type
+نویسنده
+screenplay
+spouse
+subdivision_type
+زادگاه
+ordo
+state
+pushpin_map
+محل زندگی
+فعالیت
+cities
+director
+استان
+دهستان
+birth_place
+کارگردان
+فرمانده
+بخش‌ها
+پیشه
+death_date
+ناشر
+هنرمند
+headquarters
+تهیه کننده
+nationality
+field
+genus
+تاریخ
+subdivision_type2
+کشف کرده‌اند
+regnum
+death_place
+subdivision_type1
+شماره ثبت
+position
+region
+ولایت
+party
+settlement_type
+official_name
+classis
+successor
+تاریخ تولد
+subdivision_name
+subdivision_name4
+subdivision_name3
+subdivision_name2
+کشور
+subdivision_name1
+predecessor
+ملیت
+سال گشایش
+محل تولد
+caps1
+government_type
+nickname
+assembly
+نام
+انتشار
+شهرها
+صورت
+ترانه‌سرا
+services
+سبک
+label2
+native_name
+مکان
+نام محلی
+کشف و شناسایی
+سال سرشماری
+جمعیت
+پایتخت
+بازیگران
+پدر
+starring
+بخش
+canton
+location
+writer
+category
+مذهب
+محل مرگ
+familia
+president

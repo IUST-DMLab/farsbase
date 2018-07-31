@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <artifactId>knowlede-store-export</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <name>Knowledge Store Export</name>
+    <parent>
+        <relativePath>../</relativePath>
+        <groupId>ir.ac.iust.dml.kg.knowledge.store</groupId>
+        <artifactId>parent</artifactId>
+        <version>2.2.0</version>
+    </parent>
+
+    <properties>
+        <spring.boot.version>1.4.5.RELEASE</spring.boot.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Class-Path>
+                                lib/com.openlinksw.virtuoso-1.0.jar
+                                lib/com.openlinksw.virtuoso-4.2.jar
+                            </Class-Path>
+                        </manifestEntries>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>ir.ac.iust.dml.kg.knowledge.store.export.Application</mainClass>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- Other Dependencies -->
+        <dependency>
+            <groupId>ir.ac.iust.dml.kg.knowledge.store</groupId>
+            <artifactId>knowlede-store-access2</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ir.ac.iust.dml.kg</groupId>
+            <artifactId>utils</artifactId>
+            <version>0.3.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>virt_rdf4j</groupId>
+            <artifactId>com.openlinksw.virtuoso</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/lib/virt_rdf4j.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>virtjdbc</groupId>
+            <artifactId>com.openlinksw.virtuoso</artifactId>
+            <version>4.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/lib/virtjdbc4_2.jar</systemPath>
+        </dependency>
+    </dependencies>
+</project>

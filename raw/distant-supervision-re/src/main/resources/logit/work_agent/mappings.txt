@@ -1,0 +1,5 @@
+﻿نویسنده	writer
+تهیه‌کننده	producer
+director	کارگردان
+starring
+ترانه‌سرا

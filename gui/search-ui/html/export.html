@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app='kgui'>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+
+    <title>Knowledge Graph</title>
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-rtl/dist/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+    <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+
+    <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-messages/angular-messages.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-sanitize/angular-sanitize.js"></script>
+
+    <script type="text/javascript" src="../libs/jquery.growl/javascripts/jquery.growl.js"></script>
+    <link rel="stylesheet" type="text/css" href="../libs/jquery.growl/stylesheets/jquery.growl.css">
+
+    <script type="text/javascript" src="../node_modules/ng-tags-input/build/ng-tags-input.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/ng-tags-input/build/ng-tags-input.min.css">
+
+    <script type="text/javascript" src="../node_modules/lodash/lodash.min.js"></script>
+
+    <script type="text/javascript" src="../node_modules/angular-auto-complete/angular-auto-complete.js"></script>
+    <link rel="stylesheet" href="../node_modules/angular-auto-complete/angular-auto-complete.css"/>
+
+    <script type="text/javascript" src="../node_modules/angular-paging/dist/paging.min.js"></script>
+
+    <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css"/>
+
+
+    <script type="text/javascript" src="../scripts/general.js?v=13960515b"></script>
+    <script type="text/javascript" src="../scripts/date.js?v=13960515b"></script>
+    <script type="text/javascript" src="../scripts/app/app.js?v=13960515b"></script>
+    <script type="text/javascript" src="../scripts/app/service/rest.js?v=13960515b"></script>
+    <script type="text/javascript" src="../scripts/app/controller/main.js?v=13960515b"></script>
+
+    <link rel="stylesheet" href="../styles/main.css?v=13960515b">
+</head>
+
+<body ng-controller="ExportController">
+
+
+<div class="entities">
+    <div class="entity-box">
+        <div ng-if="entity"
+             ng-include="'./templates/entity.html'"></div>
+    </div>
+</div>
+
+</body>
+
+</html>

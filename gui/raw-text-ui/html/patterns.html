@@ -1,0 +1,142 @@
+<md-content flex layout-padding>
+  <md-tabs md-dynamic-height md-border-bottom md-selected="params.st">
+    <md-tab label="جستجو">
+      <div ng-if="patterns.totalPages==0" layout="row" layout-sm="column" layout-align="center center"
+           layout-wrap>
+        هیچ کارتی وجود ندارد!
+      </div>
+
+      <div ng-if="patterns.totalPages>0" layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <!--<span style="color: green; padding: 5px">-->
+        <!--تعداد الگوهای تأیید شده: {{numberOfApprovedPatterns}}-->
+        <!--</span>-->
+        <span style="color: blue; padding: 5px">
+                تعداد صفحات: {{patterns.totalPages}}
+                </span>
+        <md-button class="md-primary" aria-label="قبلی" ng-disabled="patterns.pageNo==1"
+                   ng-click="goPatterns(patterns.pageNo - 1)">قبلی
+        </md-button>
+        <md-input-container class="md-icon-float md-icon-right md-block">
+          <input ng-change="goPatterns(patterns.pageNo)" ng-model="patterns.pageNo"
+                 type="number" max="{{patterns.totalPages}}" min="0" step="1">
+        </md-input-container>
+        <md-button class="md-primary" aria-label="بعدی"
+                   ng-disabled="patterns.pageNo==patterns.totalPages"
+                   ng-click="goPatterns(patterns.pageNo + 1)">بعدی
+        </md-button>
+      </div>
+
+      <table>
+        <tr>
+          <th></th>
+          <th>تعداد جملات</th>
+          <th>طول هر جمله</th>
+          <th>جمله نمونه</th>
+        </tr>
+        <tr ng-repeat="x in patterns.content">
+          <td>
+            <md-button ng-click="editPattern($index, x)">ویرایش</md-button>
+          </td>
+          <td>{{x.count}}</td>
+          <td>{{x.sentenceLength}}</td>
+          <td>{{x.samples[0]}}</td>
+        </tr>
+      </table>
+    </md-tab>
+    <md-tab label="ویرایش">
+      <md-content class="md-padding" ng-if="!currentPattern">
+        هنوز الگویی انتخاب نشده است.
+      </md-content>
+      <md-content class="md-padding" ng-if="currentPattern">
+        <div ng-if="patterns.totalPages>0" layout="row" layout-sm="column" layout-align="center center"
+             layout-wrap>
+          <md-button class="md-primary" aria-label="قبلی" ng-click="previousPattern()">الگوی قبلی</md-button>
+          <md-button class="md-primary" aria-label="افزودن" ng-click="addRelation()">افزودن رابطه</md-button>
+          <md-button class="md-primary" aria-label="حذف" ng-click="removeAllRelations()">حذف تمام روابط</md-button>
+          <md-button class="md-primary" aria-label="حذف" ng-click="removeRelation()">حذف رابطه جاری</md-button>
+          <md-button class="md-primary" aria-label="ذخیره" ng-click="savePattern()">ذخیره الگو</md-button>
+          <md-button class="md-primary" aria-label="بعدی" ng-click="nextPattern()">الگوی بعدی</md-button>
+        </div>
+        <div flex="10"></div>
+        <div layout="column" flex="80" layout-wrap>
+          <md-tabs md-dynamic-height md-border-bottom md-selected="params.relationIndex">
+            <md-tab ng-repeat="relation in currentPattern.data.relations" label="{{$index + 1}}">
+              <div layout="row">
+                <div ng-repeat="y in currentPattern.dependencyTree" layout="column"
+                     style="text-align: center; padding: 2px;">
+                  <div>{{y.word}}</div>
+                  <div style="height: 20px; max-height: 20px; min-height: 20px">
+                  <span style="color: red" ng-if="relation.subject.indexOf($index) > -1">
+                                            SUBJ
+                                        </span>
+                    <span style="color: green" ng-if="relation.predicate.indexOf($index) > -1">
+                                            PRD
+                                        </span>
+                    <span style="color: blue" ng-if="relation.object.indexOf($index) > -1">
+                                            OBJ
+                                        </span>
+                  </div>
+                  <md-switch ng-change="switchSubject(relation)" ng-model="relation.ssw[$index]"
+                             aria-label="Subject">
+                  </md-switch>
+                  <md-switch ng-change="switchPredicate(relation)" ng-model="relation.psw[$index]"
+                             aria-label="Predicate">
+                  </md-switch>
+                  <md-switch ng-change="switchObject(relation)" ng-model="relation.osw[$index]"
+                             aria-label="Object">
+                  </md-switch>
+                </div>
+              </div>
+              <md-input-container>
+                <label>گزاره خارج از متن</label>
+                <input ng-model="relation.manualPredicate" ng-change="rebuildTuples()">
+              </md-input-container>
+              <md-input-container>
+                <label>کلمه اجباری</label>
+                <input ng-model="relation.mandatoryWord" ng-change="rebuildTuples()">
+              </md-input-container>
+            </md-tab>
+            <md-tab label="درخت وابستگی">
+              <div style="overflow: auto">
+                <svg ng-show="currentPattern.dependencyTreeConll" id="sample-dep-tree"></svg>
+              </div>
+            </md-tab>
+          </md-tabs>
+          <div ng-if="currentPattern.tuples.length > 0">
+            نمونه‌هایی از سه‌تایی‌های قابل تولید
+            <div layout="row" dir="ltr" style="overflow: auto">
+              <pre ng-repeat="tuple in currentPattern.tuples">{{tuple | json}}</pre>
+            </div>
+          </div>
+          <div>
+            <b>تعداد جملات:</b>
+            {{currentPattern.data.count}}
+          </div>
+          <div>
+            <b>طول جمله:</b>
+            {{currentPattern.data.sentenceLength}}
+          </div>
+          <div><b>بخشی از جملات نمونه:</b></div>
+          <div ng-repeat="s in currentPattern.data.samples">
+            {{s}}
+          </div>
+        </div>
+      </md-content>
+    </md-tab>
+    <md-tab label="آزمون">
+      <md-content class="md-padding" layout-align="center center" layout-wrap>
+        <md-button ng-click="predictByPattern(testText)" class="md-raised md-primary">
+          پیش‌بینی
+        </md-button>
+        <md-input-container class="md-block">
+          <label>متن</label>
+          <textarea ng-model="testText" md-maxlength="5000" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+        <div layout="column" dir="ltr" style="overflow: auto">
+          <pre ng-repeat="tuple in predicted">{{tuple | json}}</pre>
+          <hr/>
+        </div>
+      </md-content>
+    </md-tab>
+  </md-tabs>
+</md-content>

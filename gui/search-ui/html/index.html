@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html ng-app='kgui'>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+    <meta name="referrer" content="no-referrer" />
+
+    <title>Knowledge Graph</title>
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-rtl/dist/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+    <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+
+    <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-messages/angular-messages.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-sanitize/angular-sanitize.js"></script>
+
+    <script type="text/javascript" src="../libs/jquery.growl/javascripts/jquery.growl.js"></script>
+    <link rel="stylesheet" type="text/css" href="../libs/jquery.growl/stylesheets/jquery.growl.css">
+
+    <script type="text/javascript" src="../node_modules/ng-tags-input/build/ng-tags-input.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/ng-tags-input/build/ng-tags-input.min.css">
+
+    <script type="text/javascript" src="../node_modules/lodash/lodash.min.js"></script>
+
+    <script type="text/javascript" src="../node_modules/angular-auto-complete/angular-auto-complete.js"></script>
+    <link rel="stylesheet" href="../node_modules/angular-auto-complete/angular-auto-complete.css"/>
+
+    <script type="text/javascript" src="../node_modules/angular-paging/dist/paging.min.js"></script>
+
+    <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css"/>
+
+
+    <script type="text/javascript" src="../scripts/general.js?v=1391011"></script>
+    <script type="text/javascript" src="../scripts/date.js?v=1391011"></script>
+    <script type="text/javascript" src="../scripts/app/config.js?v=1391011"></script>
+    <script type="text/javascript" src="../scripts/app/app.js?v=1391011"></script>
+    <script type="text/javascript" src="../scripts/app/service/rest.js?v=1391011"></script>
+    <script type="text/javascript" src="../scripts/app/controller/main.js?v=1391011"></script>
+
+    <link rel="stylesheet" href="../styles/main.css?v=1391011">
+</head>
+
+<body ng-controller="MainController">
+<div ng-include="'templates/header.html?v=1391011'"></div>
+
+<div class="search-box">
+    <form ng-submit="go()" class="form-inline">
+        <label class="fontSahel fs-16x">جستجو</label>
+        <input type="text"
+               class="search"
+               ng-model="filter.keyword"
+               placeholder="عبارت مورد نظر خود را وارد نمایید"/>
+    </form>
+</div>
+
+<button id="feedback-button" type="button" class="btn btn-warning"
+        ng-click="openFeedback()">فیدبک
+</button>
+<br/>
+
+<div ng-if="results.entities.length" class="container" id="body">
+
+    <div class="row">
+        <ul class="breadcrumb" ng-if="results.breadcrumb.length">
+            <li ng-repeat="item in results.breadcrumb">{{item}}</li>
+        </ul>
+
+        <div class="col-xs-12 col-md-8">
+            <h4>پاسخ‌های گزاره‌ای</h4>
+            <div ng-repeat="(key, value) in relationalResults" style="line-height: 300%;">
+                <fieldset>
+                    <legend>{{key}}</legend>
+
+                    <div ng-if="value.mode==='large'">
+                        <div ng-repeat="entity in value"
+                             ng-include="'./templates/relational.html?v=1391011'"></div>
+                    </div>
+
+                    <div ng-if="value.mode==='abstract'">
+                        <div ng-repeat="entity in value"
+                             class="relational-item-abstract-container"
+                             ng-include="'./templates/relational-abstract.html?v=1391011'"></div>
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <div class="search-no-results"
+                 ng-if="isEmpty(relationalResults) && isEmpty(similarities) && isEmpty(entities)">جستجو پاسخی در بر نداشت</div>
+
+            <br><br>
+            <div ng-if="JSON.stringify(similarities).length-2">
+                <h4>موجودیت‌های مرتبط</h4>
+                <div ng-repeat="(key, value) in similarities" style="line-height: 300%;">
+                    <fieldset>
+                        <legend>{{key}}</legend>
+
+                        <div ng-if="value.mode==='large'">
+                            <div ng-repeat="entity in value"
+                                 ng-include="'./templates/relational.html?v=1391011'"></div>
+                        </div>
+
+                        <div ng-if="value.mode==='abstract'">
+                            <div ng-repeat="entity in value"
+                                 class="relational-item-abstract-container"
+                                 ng-include="'./templates/relational-abstract.html?v=1391011'"></div>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+
+            <!--<div class="search-no-results" ng-if="isEmpty(similarities)">جستجو موجودیت‌های مرتبط در بر نداشت</div>-->
+        </div>
+
+        <div class="col-xs-12 col-md-4">
+            <h4>موجودیت‌ها</h4>
+            <div class="entities">
+                <div ng-repeat="entity in entities">
+                    <div class="entity-box">
+                        <div ng-if="entity.data" ng-include="'./templates/entity.html?v=1391011'"></div>
+                        <div ng-if="!entity.data" ng-include="'./templates/relational.html?v=1391011'"></div>
+                        <div ng-if="!entity.data" style="clear: both;"></div>
+                        <div ng-if="!entity.data">
+                            <span class="link more" ng-click="loadEntity(entity)">بیشتر...</span>
+                        </div>
+                    </div>
+                    <hr ng-if="!$last" style=""/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div ng-if="results.entities && !results.entities.length" class="search-no-results">
+    جستجو نتیجه‌ای در بر نداشت!!!
+</div>
+
+<br/>
+<div ng-show="results.entities.length"
+     style="padding: 10px; margin-bottom: 20px; border-top: solid 1px #aaa; text-align: center">
+    <a ng-click="showInfo=!showInfo;window.scrollTo(0,document.body.scrollHeight);" style="cursor: pointer;">درباره
+        سیستم</a>
+</div>
+<div ng-show="!results.entities.length || showInfo" ng-include="'./templates/info.html?v=1391011'"
+     style="padding: 0px; margin: 10px 40px;"></div>
+
+<!--<div ng-include="'templates/footer.html'"></div>-->
+</body>
+
+</html>

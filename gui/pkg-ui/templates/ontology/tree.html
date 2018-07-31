@@ -1,0 +1,97 @@
+<div>
+    <h1>سامانه مدیریت هستان‌شناسی</h1>
+
+    <md-divider></md-divider>
+
+    <!--simple view-->
+    <div ng-show="view=='SIMPLE'">
+        <!--toolbar-->
+        <div>
+            <div layout-margin layout="row">
+                <md-button ng-disabled="!items" class="md-raised md-primary" ng-click="expandAll()">نمایش همه
+                </md-button>
+                <md-button ng-disabled="!items" class="md-raised md-primary" ng-click="collapseAll()"
+                           ng-style="{'background-color': 'green'}">بستن همه
+                </md-button>
+
+                <md-button ng-disabled="!items" class="md-raised md-primary" ng-click="switchView('GRAPHICAL')"
+                           ng-style="{'background-color': 'cadetblue'}">نمایش گرافیکی
+                </md-button>
+                <span flex></span>
+
+                <div layout="row" layout-align="end center">
+                    <md-radio-group ng-disabled="!items" ng-model="lang" ng-change="switchLanguage(lang)" layout="row">
+                        <md-radio-button value="fa" class="md-primary">فارسی</md-radio-button>
+                        <md-radio-button value="en">English</md-radio-button>
+                    </md-radio-group>
+                </div>
+            </div>
+        </div>
+
+        <!--TreeView-->
+        <div>
+            <!--right to left TreeView-->
+            <div ng-if="lang=='fa'" ng-class="{'ltr' : lang=='en'}">
+                <div ivh-treeview="items"
+                     ivh-treeview-twistie-expanded-tpl="'<md-icon class=\'fa fa-minus\'></md-icon>'"
+                     ivh-treeview-twistie-collapsed-tpl="'<md-icon class=\'fa fa-plus\'></md-icon>'"
+                     ivh-treeview-twistie-leaf-tpl="'<md-icon class=\'fa fa-minus\'></md-icon>'"
+                     ivh-treeview-use-checkboxes="false"
+                     ivh-treeview-expand-to-depth="1">
+                    <script type="text/ng-template">
+                        <span ivh-treeview-toggle>
+                    <span ivh-treeview-twistie></span>
+                </span>
+                        <span class="ivh-treeview-node-label">
+                    <a class="ivh-treeview-node-link" target="_blank"
+                       ui-sref="ontology.class({classUrl:node.url})">{{trvw.label(node)}} <span class="medium-text">({{node.name}})</span></a>
+                </span>
+                        <div ivh-treeview-children></div>
+                    </script>
+                </div>
+            </div>
+            <!--left to right TreeView-->
+            <div ng-if="lang=='en'" ng-class="{'ltr' : lang=='en'}">
+                <div ivh-treeview="items"
+                     ivh-treeview-twistie-expanded-tpl="'<md-icon class=\'fa fa-minus\'></md-icon>'"
+                     ivh-treeview-twistie-collapsed-tpl="'<md-icon class=\'fa fa-plus\'></md-icon>'"
+                     ivh-treeview-twistie-leaf-tpl="'<md-icon class=\'fa fa-minus\'></md-icon>'"
+                     ivh-treeview-use-checkboxes="false"
+                     ivh-treeview-expand-to-depth="1">
+                    <script type="text/ng-template">
+                        <span ivh-treeview-toggle>
+                    <span ivh-treeview-twistie></span>
+                </span>
+                        <span class="ivh-treeview-node-label">
+                    <a class="ivh-treeview-node-link" target="_blank"
+                       ui-sref="ontology.class({classUrl:node.url})">{{trvw.label(node)}}</a>
+                </span>
+                        <div ivh-treeview-children></div>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--graphical view-->
+    <div ng-show="view=='GRAPHICAL'" id="tree-graphical-container" class="scroll2" dir="ltr">
+        <div layout-align="start center" ng-class="(lang==='en') ? 'close' : 'close-right'">
+            <md-button class="md-raised md-primary" ng-click="switchView('SIMPLE')"
+                       ng-style="{'background-color': 'cadetblue'}">نمایش ساده
+            </md-button>
+        </div>
+        <div layout-align="start center" ng-class="(lang==='en') ? 'close' : 'close-right'" style="top: 60px;">
+            <md-radio-group ng-disabled="!items" ng-model="lang" ng-change="switchLanguage(lang)" layout="row"  dir="rtl">
+                <md-radio-button value="fa" class="md-primary">فارسی</md-radio-button>
+                <md-radio-button value="en">English</md-radio-button>
+            </md-radio-group>
+        </div>
+    </div>
+
+    <md-divider ng-if="items"></md-divider>
+
+    <div layout-margin="" ng-if="items">
+        <a class="fa fa-lg fa-plus green link" ui-sref="ontology.class-edit({classUrl:''})"></a>
+        <a class="link" ui-sref="ontology.class-edit({classUrl:''})">افزودن کلاس جدید</a>
+    </div>
+</div>

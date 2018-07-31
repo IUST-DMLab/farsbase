@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <artifactId>knowlede-expert-access</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <name>Knowledge Expert Access</name>
+    <parent>
+        <relativePath>../</relativePath>
+        <groupId>ir.ac.iust.dml.kg.knowledge.expert</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.4.1</version>
+    </parent>
+
+    <build>
+
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>ir.ac.iust.dml.kg</groupId>
+            <artifactId>knowledge-core</artifactId>
+          <version>1.0.1</version>
+        </dependency>
+        <!-- MongoDB java driver -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
+        <!-- Spring data MongoDB -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>1.10.3.RELEASE</version>
+        </dependency>
+
+
+        <!-- Other Dependencies -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Rest Client -->
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-client</artifactId>
+            <version>3.1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-hc</artifactId>
+            <version>3.1.10</version>
+        </dependency>
+    </dependencies>
+</project>

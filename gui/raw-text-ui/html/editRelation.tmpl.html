@@ -1,0 +1,49 @@
+<md-dialog aria-label="افزودن رابطه" dir="rtl">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>افزودن رابطه</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-icon="toolbar:close"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content style="overflow: scroll">
+            <div layout="row">
+                <md-input-container>
+                    <label>گزاره دستی</label>
+                    <input ng-model="manualPredicate">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <div ng-repeat="y in sentence.tokens" layout="column"
+                     style="text-align: center; padding: 2px;">
+                    <div>{{y.word}}</div>
+                    <div style="height: 20px; max-height: 20px; min-height: 20px">
+                        <span style="color: red" ng-if="relation.subject[$index]">SUBJ</span>
+                        <span style="color: green" ng-if="relation.predicate[$index]">PRD</span>
+                        <span style="color: blue" ng-if="relation.object[$index]">OBJ</span>
+                    </div>
+                    <md-switch ng-model="relation.subject[$index]" aria-label="Subject"></md-switch>
+                    <md-switch ng-model="relation.predicate[$index]" aria-label="Predicate"></md-switch>
+                    <md-switch ng-model="relation.object[$index]" aria-label="Object"></md-switch>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="addAsCard('not useful')" md-autofocus>
+                افزودن به سه‌تایی‌های طلایی
+            </md-button>
+            <md-button ng-click="addAsDepRel('not useful')" md-autofocus>
+                افزودن به عنوان الگوی وابستگی
+            </md-button>
+            <span flex></span>
+            <md-button ng-click="hide()">
+                بی‌خیال!
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

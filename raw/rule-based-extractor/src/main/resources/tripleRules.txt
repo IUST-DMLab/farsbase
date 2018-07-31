@@ -1,0 +1,17 @@
+fkgo:birthPlace ~  (?$subject [{ner:/.+Person.+/}]+) [{word:/در/}] (?$object [{ner:/.+Settlement.+/}]+) [{word:/به/}]? [{word:/دنیا|متولد|زاییده|جهان/}] [{word:/آمد|شد|گشود/}]
+fkgo:job ~         (?$subject [{ner:/.+Person.+/}]+) (?$object [{word:/روابط عمومی|مدیر|رئیس|رئیس کل|دبیرکل|وزیر|مدیرعامل|عضو|سفیر|سفیر|شهردار|استاندار|فرماندار|بخشدار|دهیار|استاد|رئیس/}]) [{word:/.+/}]* [{ner:/.+Settlement.*|.+Country.*|.+Organ.*/}]+ [{word:/.+/}]+
+fkgo:office ~      (?$subject [{ner:/.+Person.+/}]+) [{word:/روابط عمومی|مدیر|رئیس|رئیس کل|دبیرکل|وزیر|مدیرعامل|عضو|سفیر|سفیر|شهردار|استاندار|فرماندار|بخشدار|دهیار|استاد|رئیس/}] [{word:/.+/}]* (?$object [{ner:/.+Settlement.*|.+Country.*|.+Organ.*/}]+) [{word:/.+/}]+
+fkgo:birthPlace ~  (?$subject [{ner:/.+Person.+/}]+) [{word:/در/}] (?$object [{ner:/.+Settlement/}]+) [{word:/چشم/}] [{word:/به/}] [{word:/جهان/}] [{word:/گشود/}]
+fkgo:birthDate ~   (?$subject [{ner:/.+Person.+/}]+) [{word:/.+/}]+ (?$object [{ner:/.+Timeperiod.+/}]+) [{word:/به/}]? [{word:/دنیا|متولد|زاییده|جهان/}] [{word:/آمد|شد|گشود/}]
+fkgo:birthDate ~   (?$subject [{ner:/.+Person.+/}]+) [{word:/.+/}]+ (?$object [{ner:/.+Timeperiod.+/}]+) [{word:/چشم/}] [{word:/به/}] [{word:/جهان/}] [{word:/گشود/}]
+fkgo:deathAge ~    (?$subject [{ner:/.+Person.+/}]+) [{word:/در/}] [{word:/سن/}] (?$object [{word:/\d+/}] [{word:/سالگی/}]) [{word:/فوت|چشم/}]? [{word:/از/}]? [{word:/جهان/}]?  [{word:/کرد|فروبست|درگذشت/}]
+fkgo:job ~         (?$subject [{ner:/.+Person.+/}]+) (?$object [{word:/سردبیر|دبیر|نویسنده|ناشر/}]) [{word:/.+/}]+ [{ner:/.+Newspaper.+/}] [{word:/.+/}]+
+fkgo:office ~      (?$subject [{ner:/.+Person.+/}]+) [{word:/سردبیر|دبیر|نویسنده|ناشر/}] [{word:/.+/}]+ (?$object [{ner:/.+Newspaper.+/}]) [{word:/.+/}]+
+fkgo:stadium ~     (?$subject [{ner:/.+Sportsteam.+|.+Country.*|.+Teamsport.*/}]+) [{word:/.+/}]* [{word:/در/}] [{word:/ورزشگاه/}] [{word:/خانگی/}]? [{word:/خود/}] [{word:/.+/}]* (?$object [{ner:/.+Stadium.*/}]+) [{word:/.+/}]*  [{word:/دیدار/}]
+fkgo:penName ~     [{word:/تخلص|مستعار|تخلصِ/}] (?$subject[{ner:/.+Person.+/}]+) [{word:/در/}]? [{word:/کشور|روستا|شهر/}]? [{ner:/.+Settlement.+/}]? [{word:/و/}]?  [{ner:/.+Country.+/}]? (?$object [{word:/(.)+/}]+) [{word:/است|می‌باشد/}]
+fkgo:fullName ~    [{word:/نام|نامِ/}] [{word:/کامل|کاملِ/}] (?$subject[{ner:/.+Person.+/}]+) (?$object [{word:/(.)+/}]+) [{word:/و/}]
+fkgo:deathDate ~   (?$subject[{ner:/.+Person.+/}]+) [{word:/\(/}] [{word:/.+/}] [{word:/–/}] (?$object[{word:/.+/}] [{word:/هجری/}] [{word:/قمری|شمسی/}]) [{word:/\)/}]
+fkgo:birthDate ~   (?$subject[{ner:/.+Person.+/}]+) [{word:/\(/}] (?$object[{word:/.+/}]) [{word:/–/}] [{word:/.+/}] (?$object2 [{word:/هجری/}] [{word:/قمری|شمسی/}]) [{word:/\)/}]
+fkgo:title ~       (?$subject[{ner:/.+Person.+/}]+) [{word:/لقب/}] (?$object [{word:/.+/}]+) [{word:/داده‌اند|داده‌است|داده/}]
+fkgo:deathPlace ~  [{word:/آرامگاه/}] (?$subject[{ner:/.+Person.+/}]+) [{word:/در/}] (?$object[{ner:/.+Settlement.+/}]+) [{word:/واقع|قرار|است/}]
+fkgo:educated ~    (?$subject[{ner:/.+Person.+/}]+) [{word:/در/}] (?$object [{ner:/.+Thing.+/}]+) [{word:/.*/}]* [{word:/تحصیل/}] [{word:/.*/}]* [{word:/کرد/}]

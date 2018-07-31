@@ -1,0 +1,28 @@
+﻿شماره ثبت
+دوره ساخت اثر
+انتشار
+subdivision_name
+نام
+سبک
+جمعیت
+assembly
+دیرینگی
+manufacturer
+party
+position
+ساز
+representation
+successor
+predecessor
+service
+nickname
+صورت
+category
+caps1
+death_date
+جمعیت
+birth_date
+مذهب
+سال گشایش
+دهستان
+استان

@@ -1,0 +1,35 @@
+<md-dialog aria-label="Edit" style="direction:rtl;">
+    <form name="Form" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 ng-if="!newUser">ویرایش</h2>
+                <h2 ng-if="newUser">ایجاد دسترسی جدید</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content dir="rtl">
+            <div class="md-dialog-content">
+                <div layout="column">
+                    <md-input-container>
+                        <label>نام</label>
+                        <input type="text" name="title" ng-model="permission.title" required ng-minlength="2"
+                               autocomplete="new-title">
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>توضیحات</label>
+                        <input type="text" name="dsc" ng-model="permission.description"
+                               autocomplete="new-dsc">
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button type="submit"
+                       class="md-raised md-primary"
+                       ng-disabled="Form.$invalid"
+                       ng-click="save();">ذخیره</md-button>
+            <md-button class="md-raised" ng-click="cancel();">انصراف</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

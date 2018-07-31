@@ -1,0 +1,41 @@
+<div dir="rtl" style="min-width: 450px; min-height: 450px;">
+    <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="انتخاب خصیصه">
+            <md-content class="md-padding">
+                <div layout="column">
+                    <md-input-container>
+                        <label>جستجوی خصیصه</label>
+                        <md-autocomplete
+                                md-autocomplete-snap="width"
+                                md-items="item in suggestProperties(searchText)"
+                                md-selected-item="selectedItem"
+                                md-search-text="searchText"
+                                md-item-text="item"
+                                md-select-on-focus="true"
+                                md-min-length="2"
+                                md-delay="200"
+                                md-no-cache="true"
+                                placeholder="">
+                            <md-item-template>
+                                <span md-highlight-text="searchText">{{item}}</span>
+                            </md-item-template>
+                            <md-not-found>جستجو نتیجه‌ای در پی نداشت!</md-not-found>
+                        </md-autocomplete>
+                    </md-input-container>
+                </div>
+                <br>
+                <div layout-margin>
+                    <md-button ng-click="selectProperty(selectedItem)" ng-disabled="!selectedItem"
+                               class="md-primary md-raised">انتخاب
+                    </md-button>
+                    <md-button ng-click="closeDialog()" class=" md-raised">انصراف</md-button>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab label="ایجاد خصیصه جدید">
+            <md-content class="md-padding">
+                <div ng-include="'./templates/ontology/property-edit.html'"></div>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</div>

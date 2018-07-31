@@ -1,0 +1,102 @@
+<form name="myForm" ng-submit="$event.preventDefault()">
+    <div role="dialog" aria-label="" layout="column" layout-align="center center">
+        <md-toolbar>
+            <div class="md-toolbar-tools rtl">
+                <h5>{{action.title}}</h5>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="close()">
+                    <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <div class="dialog-panel-content scroll2 rtl right" layout-padding layout="column" dir="rtl" style="height: 360px;">
+            <md-input-container class="rtl right" style="margin-top: 20px; margin-bottom: -20px;" >
+                <label>property</label>
+                <input type="text"
+                       ng-model="model.property.property"
+                       ng-disabled="true"
+                       required
+                       aria-label="property">
+            </md-input-container>
+
+            <!--predicate-->
+            <md-autocomplete class="rtl right" dir="rtl"
+                             md-input-name="autocompletePredicate"
+                             md-selected-item="model.rule.predicate"
+                             md-search-text="searchPredicate"
+                             md-items="item in suggestPredicates(searchPredicate)"
+                             md-item-text="item"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             md-require-match
+                             md-floating-label="predicate" aria-label="predicate">
+                <md-item-template>
+                    <span md-highlight-text="searchPredicate" md-highlight-flags="^i">{{item}}</span>
+                </md-item-template>
+                <md-not-found>No predicate matching.</md-not-found>
+            </md-autocomplete>
+            <br>
+
+            <!--unit-->
+            <md-autocomplete class="rtl right" dir="rtl"
+                             md-input-name="autocompleteUnit"
+                             md-selected-item="model.rule.unit"
+                             md-search-text="searchUnit"
+                             md-items="item in suggestUnits(searchUnit)"
+                             md-item-text="item | extractLastUrlItem"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             md-require-match
+                             md-floating-label="unit" aria-label="unit">
+                <md-item-template>
+                    <span md-highlight-text="searchUnit" md-highlight-flags="^i">{{item | extractLastUrlItem}}</span>
+                </md-item-template>
+                <md-not-found>No unit matching.</md-not-found>
+            </md-autocomplete>
+            <br>
+
+            <!--transform-->
+            <md-autocomplete class="rtl right" dir="rtl"
+                             md-input-name="autocompleteTransform"
+                             md-selected-item="model.rule.transform"
+                             md-search-text="searchTransform"
+                             md-items="item in suggestTransforms(searchTransform)"
+                             md-item-text="item.label"
+                             md-input-minlength="0"
+                             md-min-length="0"
+                             md-delay="300"
+                             md-require-match
+                             md-floating-label="transform" aria-label="transform">
+                <md-item-template>
+                <span md-highlight-text="searchTransform"
+                      md-highlight-flags="^i">{{item.label}}({{item.transform}})</span>
+                </md-item-template>
+                <md-not-found>No transform matching.</md-not-found>
+            </md-autocomplete>
+            <br>
+
+            <div class="row" layout-align="center center">
+                <span>تایید</span>
+                <md-checkbox ng-model="model.rule.valid" aria-label="تایید"></md-checkbox>
+            </div>
+        </div>
+
+        <div style="border-top: solid 1px #ddd; width: 100%;">
+            <div layout="row" layout-align="center center" class="rtl" style="padding: 10px 0;">
+                <md-button type="submit"
+                           aria-label="ذخیره"
+                           class="md-raised md-primary"
+                           ng-disabled="myForm.$invalid"
+                           ng-click="save($index)">ذخیره
+                </md-button>
+
+                <md-button class="md-raised"
+                           ng-click="close()"
+                           aria-label="انصراف">انصراف
+                </md-button>
+            </div>
+        </div>
+
+    </div>
+</form>

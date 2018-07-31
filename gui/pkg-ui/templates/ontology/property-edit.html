@@ -1,0 +1,94 @@
+<div class="rtl" dir="rtl" style="min-width: 450px; min-height: 450px;">
+    <div layout-margin layout="column">
+
+        <div layout="row" layout-align="space-between center">
+            <h1>{{data.property.name}}</h1>
+            <!--<span flex></span>-->
+            <md-button ng-if="data.mode==='edit'"
+                       class="md-raised md-warn"
+                       ng-click="removeProperty($event)">حذف خصیصه
+            </md-button>
+        </div>
+
+        <md-input-container>
+            <label>نام خصیصه :‌ </label>
+            <input type="text"
+                   required
+                   ng-model="data.property.name"
+                   ng-change="nameChanged(data.property);"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>آدرس :‌ </label>
+            <input type="text"
+                   class="ltr left"
+                   ng-model="data.property.url"
+                   ng-change="urlChanged(data.property);"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>برگرفته شده از : </label>
+            <input type="text"
+                   class="ltr left"
+                   ng-model="data.property.wasDerivedFrom"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>برچسب فارسی : </label>
+            <input type="text" ng-model="data.property.faLabel"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>برچسب انگلیسی : </label>
+            <input type="text" ng-model="data.property.enLabel"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>سایر برچسب‌های فارسی (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea ng-model="data.property.faVariantLabels" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>سایر برچسب‌های انگلیسی (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea ng-model="data.property.enVariantLabels" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>خصیصه‌های معادل (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea type="text" ng-model="data.property.equivalentProperties" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>دامنه (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea type="text" ng-model="data.property.domains" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>محدوده (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea type="text" ng-model="data.property.ranges" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container ng-hide="true">
+            <label>دامنه پیشنهادی : </label>
+            <textarea type="text" ng-model="data.property.autoDomains" ng-disabled="true" ng-list="&#10;"
+                      ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container ng-hide="true">
+            <label>محدوده پیشنهادی : </label>
+            <textarea type="text" ng-model="data.property.autoRanges" ng-disabled="true" ng-list="&#10;"
+                      ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>نوع (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea type="text" ng-model="data.property.types" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+    </div>
+
+    <br>
+    <div layout-margin>
+        <md-button ng-click="saveProperty(data.property, $event)" class="md-primary md-raised">تایید</md-button>
+        <md-button ng-click="cancel($event)" class=" md-raised">انصراف</md-button>
+    </div>
+</div>

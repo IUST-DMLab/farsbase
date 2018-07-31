@@ -1,0 +1,3 @@
+birth_place	محل تولد	زادگاه
+death_place	محل مرگ
+محل زندگی

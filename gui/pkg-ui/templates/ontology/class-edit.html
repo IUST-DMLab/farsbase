@@ -1,0 +1,203 @@
+<div ng-show="clazz">
+    <div layout-margin layout="column">
+
+        <div layout="row" layout-align="space-between center">
+            <h1>{{clazz.name}}</h1>
+            <!--<span flex></span>-->
+            <md-button class="md-raised md-warn" ng-click="removeClass($event)">حذف کلاس</md-button>
+        </div>
+
+
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>نام کلاس :‌ </label>
+                        <input type="text"
+                               required
+                               ng-model="clazz.name"
+                               ng-change="nameChanged(clazz);"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>آدرس :‌ </label>
+                        <input type="text"
+                               class="ltr left"
+                               ng-model="clazz.url"
+                               ng-change="urlChanged(clazz);" />
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>کلاس والد : </label>
+                        <md-autocomplete
+                                md-autocomplete-snap="width"
+                                md-items="item in queryClasses(searchText)"
+                                md-selected-item="clazz.subClassOf"
+                                md-search-text="searchText"
+                                md-item-text="item"
+                                md-select-on-focus="true"
+                                md-min-length="2"
+                                md-delay="200"
+                                md-no-cache="true"
+                                placeholder="یک کلاس وارد کنید ...">
+                            <md-item-template>
+                                <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+                            </md-item-template>
+                            <md-not-found>جستجو نتیجه‌ای نداشت!</md-not-found>
+                        </md-autocomplete>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>برگرفته شده از : </label>
+                        <input type="text" ng-model="clazz.wasDerivedFrom"/>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>برچسب فارسی : </label>
+                        <input type="text" ng-model="clazz.faLabel"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>برچسب انگلیسی : </label>
+                        <input type="text" ng-model="clazz.enLabel"/>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>توضیحات فارسی : </label>
+                        <input type="text" ng-model="clazz.faComment"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>توضیحات انگلیسی : </label>
+                        <input type="text" ng-model="clazz.enComment"/>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>سایر برچسب‌های فارسی : </label>
+                        <textarea ng-model="clazz.faVariantLabels" ng-list="&#10;" ng-trim="false"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>سایر برچسب‌های انگلیسی : </label>
+                        <textarea ng-model="clazz.enVariantLabels" ng-list="&#10;" ng-trim="false"/>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>کلاس‌های معادل : </label>
+                        <textarea ng-model="clazz.equivalentClasses" ng-list="&#10;" ng-trim="false"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>کلاس‌های متناقض : </label>
+                        <textarea ng-model="clazz.disjointWith" ng-list="&#10;" ng-trim="false"/>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--<md-divider></md-divider>-->
+
+<div layout-margin layout="column">
+    <h3>خصیصه‌های کلاس «{{clazz.faLabel}}»</h3>
+    <div>
+        <table cellpadding="5" cellspacing="0" class="simple">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>نام</th>
+                <th>برچسب فارسی</th>
+                <th>برچسب انگلیسی</th>
+                <th>منبع</th>
+                <th style="width: 55px;">ویرایش</th>
+                <th style="width: 55px;">جداکردن</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <td colspan="5">
+                    <span class="fa fa-lg fa-plus green button" ng-click="newProperty($event)"></span>
+                    <span class="button" ng-click="newProperty($event)">افزودن خصیصه جدید</span>
+                </td>
+            </tr>
+            </tfoot>
+            <tbody>
+            <tr ng-repeat="p in clazz.properties track by $index" ng-class="{even: $even, odd: $odd}">
+                <td>{{$index+1 | persianNumbers}}</td>
+                <td>
+                    <a class="fa fa-1x fa-external-link" target="_blank"
+                       ui-sref="ontology.property({propertyUrl:p.url})"></a>
+                    <a style="margin-right: 10px;" ui-sref="ontology.property({propertyUrl:p.url})">
+                        {{p.name}}</a>
+                </td>
+                <td><span>{{p.faLabel}}</span></td>
+                <td><span>{{p.enLabel}}</span></td>
+                <td><strong>{{p.wasDerivedFrom | resourcer}}</strong></td>
+                <td class="center">
+                    <span class="fa fa-lg fa-edit button" ng-click="editProperty(p, $event)"></span>
+                </td>
+                <td class="center">
+                    <span class="fa fa-lg fa-chain-broken  red button" ng-click="detachProperty(p, $event)"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br>
+<div layout-margin>
+    <md-button ng-click="saveClass($event)" class="md-primary md-raised">ذخیره</md-button>
+    <md-button ng-click="cancel($event)" class=" md-raised">انصراف</md-button>
+</div>
+</div>

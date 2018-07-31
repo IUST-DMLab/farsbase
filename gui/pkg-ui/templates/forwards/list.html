@@ -1,0 +1,73 @@
+<div ng-controller="ForwardsController">
+
+    <md-card>
+
+        <md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+                <h3>فهرست فورواردها</h3>
+                <div flex></div>
+                <md-button class="md-icon-button" ng-click="load()">
+                    <md-icon class="fa fa-lg fa-refresh" aria-label="بروزرسانی"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-table-container>
+            <table md-table cellpadding="10" cellspacing="0" style="width: 100%;">
+                <thead md-head>
+                <tr md-row>
+                    <th md-column style="width: 20px;">#</th>
+                    <th md-column>مبدا</th>
+                    <th md-column>مقصد</th>
+                    <th md-column>urn</th>
+                    <th md-column>دسترسی‌ها</th>
+                    <th md-column style="width: 50px;"></th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row ng-repeat="frw in data.forwards track by $index" ng-class="{even: $even, odd: $odd}">
+                    <td md-cell class="top">{{$index+1 | persianNumbers}}</td>
+                    <td md-cell class="top">{{frw.source}}</td>
+                    <td md-cell class="ltr left top">{{frw.destination}}</td>
+                    <td md-cell class="top">
+                        <div ng-repeat="u in frw.urns" class="urn">
+                            <div>{{u.urn}}</div>
+                            <div class="my-chips">
+                                <span class="chip green" ng-if="u.type"><span class="chip-label">type: </span><span
+                                        class="chip-value">{{u.type}}</span></span>
+                                <span class="chip blue" ng-if="u.method"><span class="chip-label">method: </span><span
+                                        class="chip-value">{{u.method}}</span></span>
+                            </div>
+                            <div class="my-chips" ng-if="u.permissions.length">
+                                <span class="chip gray">
+                                    <span class="chip-label">permissions: </span>
+                                    <span ng-repeat="up in u.permissions"
+                                          class="chip-value">{{up.title}}{{!$last?', ':''}}</span>
+                                </span>
+                            </div>
+                            <hr ng-if="!$last">
+                        </div>
+                    </td>
+                    <td md-cell>
+                        <div class="my-chips">
+                            <span class="chip gray" ng-repeat="p in frw.permissions">{{p.title}}</span>
+                        </div>
+                    </td>
+                    <td md-cell>
+                        <md-button class="md-icon-button" ng-click="edit(frw);">
+                            <md-icon class="fa fa-lg fa-edit" aria-label="ویرایش"></md-icon>
+                        </md-button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+
+    </md-card>
+
+    <div>
+        <md-button type="submit" class="md-raised md-warn" ng-click="edit();" aria-label="add">ایجاد فوروارد جدید
+        </md-button>
+    </div>
+
+</div>

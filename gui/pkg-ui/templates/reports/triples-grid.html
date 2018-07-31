@@ -1,0 +1,32 @@
+<table class="simple" cellspacing="0" cellpadding="10">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>subject</th>
+        <th>predicate</th>
+        <th>object</th>
+        <th>module</th>
+        <th>نوع رای</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in items track by $index" ng-class="{even: $even, odd: $odd}" class="clickable">
+        <td>{{(paging.pageIndex * paging.pageSize + $index)+1 | persianNumbers}}</td>
+        <td>
+            <a target="_blank" href="{{item.triple.subject}}">{{item.triple.subject | mapPrefix}}</a>
+        </td>
+        <td>
+            <a target="_blank" href="{{item.triple.predicate}}">{{item.triple.predicate | mapPrefix}}</a>
+        </td>
+        <td>
+            <span ng-if="item.triple.object.type!=='Resource'">{{item.triple.object.value | mapPrefix}}</span>
+            <a target="_blank" ng-if="item.triple.object.type==='Resource'" href="{{item.triple.object.value}}">
+                {{item.triple.object.value| mapPrefix}}</a>
+        </td>
+        <td>
+            <div ng-repeat="s in item.triple.sources">{{s.module}}</div>
+        </td>
+        <td>{{item.vote}}</td>
+    </tr>
+    </tbody>
+</table>

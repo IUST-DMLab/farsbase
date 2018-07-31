@@ -1,0 +1,161 @@
+<md-content>
+    <md-tabs md-dynamic-height md-border-bottom md-selected="repository.tab">
+        <md-tab label="کاوش در گنجه">
+            <md-content class="md-padding" layout-align="center center" layout-wrap>
+                <div dir="ltr">
+                    <md-button ng-if="repository.path.length > 0" ng-click="gotoUp()">
+                        <md-icon md-colors="{color: 'blue'}" md-svg-icon="file:back"></md-icon>
+                        <span>قبلی</span>
+                    </md-button>
+                    <div layout="row" layout-wrap>
+                        <div ng-repeat="file in repository.ls" flex="25">
+                            <md-button ng-if="file.directory" ng-click="gotoPath(file.name)">
+                                <md-icon md-colors="{color: 'red'}" md-svg-icon="file:folder"></md-icon>
+                                <span>{{file.name}}</span>
+                            </md-button>
+                            <md-button ng-if="!file.directory" ng-click="openDocument($index)" flex="100">
+                                <md-icon md-colors="{color: 'green'}" md-svg-icon="file:text"></md-icon>
+                                <span>{{file.name}}</span>
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab label="نمایش سند">
+            <md-button ng-click="markDocument()">ذخیره سند به عنوان برگزیده</md-button>
+            <md-button ng-click="nextDocument()">سند بعدی</md-button>
+            <md-button ng-click="previousDocument()">سند قبلی</md-button>
+            {{repository.docName}}
+            <div layout="raw">
+                <md-checkbox ng-model="storage.showPos">نمایش برچسب ادات سخن</md-checkbox>
+                <md-checkbox ng-model="storage.showAmbiguities">نمایش تعداد ابهامات</md-checkbox>
+            </div>
+            <div ng-repeat="sentence in repository.document">
+                <div ng-repeat="token in sentence" class="word" layout="row" layout-align="center center">
+                    <div class="{{token.iobType}}">
+                        <div ng-if="token.resource">
+                            <a href="{{token.resource.iri}}" target="_blank">{{token.word}}</a>
+                        </div>
+                        <div ng-if="!token.resource">{{token.word}}</div>
+                    </div>
+                    <div ng-if="storage.showPos">{{token.pos}}</div>
+                    <div ng-if="storage.showAmbiguities">
+                        <span ng-if="!token.ambiguities.length">0</span>
+                        <span ng-if="token.ambiguities.length">{{token.ambiguities.length + 1}}</span>
+                    </div>
+                </div>
+            </div>
+        </md-tab>
+        <md-tab label="اسناد برگزیده">
+            <div layout flex="80" flex-offset="10" layout-align="center center" layout-padding
+                 ng-if="repository.articles">
+                <md-input-container>
+                    <label>عنوان</label>
+                    <input ng-model="repository.title">
+                </md-input-container>
+                <md-input-container>
+                    <label>مسیر</label>
+                    <input ng-model="repository.pathSearch">
+                </md-input-container>
+                <md-input-container>
+                    <label>حداقل درصد رابطه‌ها</label>
+                    <input type="number" ng-model="repository.minPercentOfRelations" step="0.001">
+                </md-input-container>
+                <md-input-container>
+                    <md-checkbox ng-model="repository.approved">تایید شده</md-checkbox>
+                </md-input-container>
+                <md-button class="md-primary" aria-label="قبلی" ng-disabled="repository.articles.pageNo==1"
+                           ng-click="searchArticles(repository.articles.pageNo - 1)">قبلی
+                </md-button>
+                <md-input-container class="md-icon-float md-icon-right md-block">
+                    <input ng-change="searchArticles(repository.articles.pageNo)" ng-model="repository.articles.pageNo"
+                           type="number" max="{{repository.articles.totalPages}}" min="0" step="1">
+                </md-input-container>
+                از {{repository.articles.totalPages}}
+                <md-button class="md-primary" aria-label="بعدی"
+                           ng-disabled="repository.articles.pageNo==repository.articles.totalPages"
+                           ng-click="searchArticles(repository.articles.pageNo + 1)">بعدی
+                </md-button>
+                <div>
+                    <md-button class="md-raised md-primary" ng-click="searchArticles()">جستجو</md-button>
+                </div>
+            </div>
+            <div layout="column" layout-align="center" flex="80" flex-offset="10">
+                <div layout="row">
+                    <div flex="15"><b>عنوان</b></div>
+                    <div flex="30"><b>مسیر</b></div>
+                    <div flex="10"><b>تعداد جملات</b></div>
+                    <div flex="10"><b>درصد رابطه‌ها</b></div>
+                    <div flex="10"><b>تایید شده</b></div>
+                    <div flex="10"><b>انتخاب شده توسط</b></div>
+                    <div flex="15"></div>
+                </div>
+                <div ng-if="repository.articles.content.length == 0" layout="row" layout-align="center">
+                    هیچ موردی پیدا نشد
+                </div>
+                <div ng-repeat="document in repository.articles.content" layout="row">
+                    <div flex="15">{{document.title}}</div>
+                    <div flex="30">{{document.path}}</div>
+                    <div flex="10">{{document.numberOfSentences}}</div>
+                    <div flex="10">{{document.percentOfRelations}}</div>
+                    <div flex="10">{{document.approved}}</div>
+                    <div flex="10">{{document.selectedByUser.username}}</div>
+                    <md-button flex="15" ng-click="editArticle($index)">ویرایش</md-button>
+                </div>
+            </div>
+        </md-tab>
+        <md-tab label="نمایش سند برگزیده">
+            <md-input-container>
+                <label>عنوان</label>
+                <input ng-model="repository.selectedArticle.title">
+            </md-input-container>
+            <md-checkbox ng-model="repository.selectedArticle.approved">تایید سند</md-checkbox>
+            <span>تعداد رابطه‌های سند: {{repository.selectedArticle.numberOfRelations}}</span>
+            <span>نسبت رابطه‌ها به جملات: {{repository.selectedArticle.percentOfRelations}}</span>
+            <md-button class="md-primary" ng-click="saveArticle()">ذخیره</md-button>
+            <div layout="raw">
+                <md-checkbox ng-model="storage.showPos">نمایش برچسب ادات سخن</md-checkbox>
+                <md-checkbox ng-model="storage.showAmbiguities">نمایش تعداد ابهامات</md-checkbox>
+            </div>
+            <div ng-repeat="sentence in repository.selectedArticle.sentences">
+                <div ng-repeat="token in sentence.tokens" class="word" layout="row" layout-align="center center">
+                    <div class="{{token.iobType}}">
+                        <div ng-if="token.resource">
+                            <a href="{{token.resource.iri}}" target="_blank">{{token.word}}</a>
+                        </div>
+                        <div ng-if="!token.resource">{{token.word}}</div>
+                    </div>
+                    <div ng-if="storage.showPos">{{token.pos}}</div>
+                    <div ng-if="storage.showAmbiguities">
+                        <span ng-if="!token.ambiguities.length">0</span>
+                        <span ng-if="token.ambiguities.length">{{token.ambiguities.length + 1}}</span>
+                    </div>
+                </div>
+                /
+                <span ng-if="sentence.numberOfRelations==0">تعداد رابطه‌ها: 0</span>
+                <span ng-if="sentence.numberOfRelations>0" style="color: red;">
+                    <b>تعداد رابطه‌ها: {{sentence.numberOfRelations}}</b>
+                </span>
+                <md-button md-colors="{background: 'grey'}" class="md-fab md-mini no-margin"
+                           ng-click="setNumberOfRelations($index, 0)">۰
+                </md-button>
+                <md-button md-colors="{background: 'grey'}" class="md-fab md-mini no-margin"
+                           ng-click="setNumberOfRelations($index, 1)">۱
+                </md-button>
+                <md-button md-colors="{background: 'grey'}" class="md-fab md-mini no-margin"
+                           ng-click="setNumberOfRelations($index, 2)">۲
+                </md-button>
+                <md-button md-colors="{background: 'grey'}" class="md-fab md-mini no-margin"
+                           ng-click="setNumberOfRelations($index, 3)">۳
+                </md-button>
+                <md-button md-colors="{background: 'grey'}" class="md-fab md-mini no-margin"
+                           ng-click="setNumberOfRelations($index, 4)">۴
+                </md-button>
+                <md-button md-colors="{background: 'indigo'}" class="no-margin"
+                           ng-click="setRelations($index)">پیشنهاد رابطه
+                </md-button>
+            </div>
+        </md-tab>
+    </md-tabs>
+</md-content>

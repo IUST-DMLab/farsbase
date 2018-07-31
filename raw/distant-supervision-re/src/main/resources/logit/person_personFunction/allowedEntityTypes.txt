@@ -1,0 +1,2 @@
+http://fkg.iust.ac.ir/ontology/Person
+http://fkg.iust.ac.ir/ontology/PersonFunction

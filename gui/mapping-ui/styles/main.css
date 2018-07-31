@@ -1,0 +1,260 @@
+@font-face {
+  font-family: "DroidArabicKufi";
+  src: url('fonts/DroidFonts/Droid%20Arabic%20Kufi.ttf') format('truetype');
+}
+@font-face {
+  font-family: "DroidNaskh";
+  src: url('fonts/DroidFonts/DroidNaskh-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: "IRANSans";
+  src: url('fonts/IranFonts/IRAN_Sans.ttf') format('truetype');
+}
+@font-face {
+  font-family: "IRANSansBold";
+  src: url('fonts/IranFonts/IRAN_Sans_Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'IRANSans-web';
+  src: url('fonts/IranFonts/IRANSans.eot?#') format('eot'), /* IE6�8 */ url('fonts/IranFonts/IRANSans.woff2') format('woff2'), /* Chrome36+, Opera24+*/ url('fonts/IranFonts/IRANSans.woff') format('woff');
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'IRANSans-web';
+  src: url('fonts/IranFonts/IRANSans-Bold.eot?#') format('eot'), /* IE6�8 */ url('fonts/IranFonts/IRANSans-Bold.woff2') format('woff2'), /* Chrome36+, Opera24+*/ url('fonts/IranFonts/IRANSans-Bold.woff') format('woff');
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-weight: bold;
+}
+@font-face {
+  font-family: Sahel;
+  src: url('fonts/SahelFonts/Sahel.eot');
+  src: url('fonts/SahelFonts/Sahel.eot?#iefix') format('embedded-opentype'), url('fonts/SahelFonts/Sahel.woff') format('woff'), url('fonts/SahelFonts/Sahel.ttf') format('truetype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: Sahel;
+  src: url('fonts/SahelFonts/Sahel-Bold.eot');
+  src: url('fonts/SahelFonts/Sahel-Bold.eot?#iefix') format('embedded-opentype'), url('fonts/SahelFonts/Sahel-Bold.woff') format('woff'), url('fonts/SahelFonts/Sahel-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+@font-face {
+  font-family: Sahel;
+  src: url('fonts/SahelFonts/Sahel-Black.eot');
+  src: url('fonts/SahelFonts/Sahel-Black.eot?#iefix') format('embedded-opentype'), url('fonts/SahelFonts/Sahel-Black.woff') format('woff'), url('fonts/SahelFonts/Sahel-MedBlackium.ttf') format('truetype');
+  font-weight: 900;
+}
+.fontDroidArabicKufi {
+  font-family: DroidArabicKufi !important;
+}
+.fontDroidNaskh {
+  font-family: DroidNaskh !important;
+}
+.fontIRANSans {
+  font-family: IRANSans !important;
+}
+.fontIRANSansBold {
+  font-family: IRANSansBold !important;
+}
+.fontIRANSans-web {
+  font-family: IRANSans-web !important;
+}
+.fontSahel {
+  font-family: Sahel !important;
+}
+.fs-14x {
+  font-size: 14px;
+}
+.fs-16x {
+  font-size: 16px;
+}
+/*version 1.0.0*/
+/**/
+/**/
+* {
+  font-family: Sahel, IRANSans-web, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+}
+input {
+  border: solid 1px #ddf2ff !important;
+}
+.ltr {
+  direction: ltr;
+}
+.rtl {
+  direction: rtl;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.small-text {
+  font-size: 10px;
+}
+.smaller-text {
+  font-size: 6px;
+}
+.pagination > li > a {
+  cursor: pointer;
+}
+td > input {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 100%;
+}
+td,
+th {
+  direction: rtl;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+}
+td.link {
+  cursor: pointer;
+  -webkit-transition: background-color 2s;
+  -moz-transition: background-color 2s;
+  -ms-transition: background-color 2s;
+  -o-transition: background-color 2s;
+  transition: background-color 2s;
+}
+td.link:hover {
+  background-color: #d9edf7;
+}
+.editing {
+  border: solid 1px red;
+}
+.btn {
+  font-size: 12px;
+}
+.close {
+  color: #a00;
+  cursor: pointer;
+  margin: 10px;
+  position: absolute;
+  left: 0;
+}
+.close:hover {
+  color: red;
+}
+table.simple td {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: normal;
+  padding: 2px;
+}
+table.simple tr.line {
+  border-top: solid 1px #ddd;
+}
+.property {
+  margin: 0 0 5px 0;
+}
+/**/
+.loading {
+  direction: rtl;
+  position: fixed;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 2200;
+}
+.loading span {
+  background: -moz-linear-gradient(center bottom, #fef1d1 0pt, #fdebbd 100%) repeat scroll 0 0 transparent;
+  background: -webkit-gradient(linear, left bottom, left top, from(#fef1d1), to(#fdebbd));
+  color: #000;
+  border-radius: 4px;
+  font-family: tahoma;
+  font-size: 10px;
+  padding: 5px;
+  border: solid 1px #ddad4e;
+  box-shadow: 0 0 4px 0px #ddd;
+  margin: 0 auto;
+}
+#mapping {
+  direction: rtl;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  overflow-y: scroll;
+  background-color: #d9edf7;
+  border: solid 1px #9acfea;
+  border-radius: 4px;
+  box-shadow: 0 0 20px 2px #555;
+  z-index: 2200;
+}
+.tabs {
+  direction: rtl;
+}
+.tabs .tab {
+  color: gray;
+  cursor: pointer;
+  display: inline-block;
+}
+.tabs .tab.active {
+  border: solid 1px #dddddd;
+  border-bottom: none;
+  color: black;
+}
+.tabs .tab:hover {
+  text-decoration: underline;
+}
+.tabs .tab .tab-inner {
+  display: block;
+  padding: 10px;
+}
+.panels {
+  border: solid 1px #dddddd;
+}
+.panels .panel {
+  display: none;
+}
+.panels .panel.active {
+  display: block !important;
+}
+/**/
+#header {
+  direction: rtl;
+  margin: 0 0 10px 0;
+  height: 50px;
+  -webkit-box-shadow: 0 0px 15px -2px #d0b7b7;
+  -moz-box-shadow: 0 0px 15px -2px #d0b7b7;
+  -o-box-shadow: 0 0px 15px -2px #d0b7b7;
+  box-shadow: 0 0px 15px -2px #d0b7b7;
+  background-color: #d07272;
+}
+#header .title {
+  color: white;
+  font-size: 15pt;
+  font-weight: bold;
+  float: right;
+  padding: 10px 50px;
+}
+#body {
+  direction: rtl;
+  min-height: 450px;
+  margin-bottom: 80px;
+  border: solid 1px #eaeaea;
+  box-shadow: 0 0 20px 2px #eee;
+  border-radius: 4px;
+}
+#footer {
+  direction: rtl;
+  background-color: #e6e6e6;
+  margin: 20px 0 0 0;
+  padding: 10px 50px;
+  text-align: center;
+  border-top: solid 1px #aaa;
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}

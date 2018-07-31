@@ -1,0 +1,17 @@
+{
+  "name": "pkg-ui",
+  "version": "1.0.0",
+  "description": "Persian Kknowledge Graph User Interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://194.225.227.161:8082/ehsan.shahshahani/pkg-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

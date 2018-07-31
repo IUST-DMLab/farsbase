@@ -1,0 +1,157 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ir.ac.iust.dml.kg.search</groupId>
+    <artifactId>searcher</artifactId>
+    <version>0.4.4</version>
+    <name>Search core engine</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <resource.extractor.version>1.6.1</resource.extractor.version>
+    </properties>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- Logging with SLF4J & LogBack -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>ir.ac.iust.dml.kg</groupId>
+            <!--<artifactId>entity-extractor</artifactId>
+            <version>1.1.1</version>-->
+            <artifactId>resource-extractor</artifactId>
+            <version>${resource.extractor.version}</version>
+            <exclusions>
+                <!--<exclusion>-->
+                <!--<groxupId>org.apache.logging.log4j</groupId>-->
+                <!--<artifactId>log4j-api</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                <!--<groupId>org.apache.logging.log4j</groupId>-->
+                <!--<artifactId>log4j-core</artifactId>-->
+                <!--</exclusion>-->
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-slf4j-impl</artifactId>
+                </exclusion>
+                <!--<exclusion>-->
+                <!--<groupId>org.apache.logging.log4j</groupId>-->
+                <!--<artifactId>log4j-1.2-api</artifactId>-->
+                <!--</exclusion>-->
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>ir.ac.iust.dml.kg</groupId>
+            <artifactId>utils</artifactId>
+            <version>0.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ir.ac.iust.dml.kg</groupId>
+            <artifactId>PersianNormalizer</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ir.ac.iust.dml.kg.vituoso</groupId>
+            <artifactId>connector</artifactId>
+            <version>0.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.8.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>apache-jena-libs</artifactId>
+            <type>pom</type>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-core</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11 -->
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ir.ghasemkiani</groupId>
+            <artifactId>persiancalendar</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

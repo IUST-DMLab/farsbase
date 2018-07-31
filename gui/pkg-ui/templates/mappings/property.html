@@ -1,0 +1,141 @@
+<md-content layout-margin ng-show="loaded">
+
+    <div layout-gt-md="row" layout-xs="column">
+        <div layout="row">
+            <md-input-container>
+                <label>الگو : </label>
+                <input type="text" ng-model="query.templateName"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.templateNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
+
+            <md-input-container>
+                <label>کلاس : </label>
+                <input type="text" ng-model="query.className"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.classNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
+        </div>
+
+        <div layout="row">
+            <md-input-container>
+                <label>خصیصه : </label>
+                <input type="text" ng-model="query.propertyName"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.propertyNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
+
+            <md-input-container>
+                <label>predicate</label>
+                <input type="text" ng-model="query.predicateName"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.predicateNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
+        </div>
+    </div>
+
+    <div layout="row" layout-align="right center">
+        <md-input-container>
+            <label>allNull</label>
+            <md-select ng-model="query.allNull">
+                <md-option value=""><em>None</em></md-option>
+                <md-option value="true"><em>True</em></md-option>
+                <md-option value="false"><em>False</em></md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-input-container>
+            <label>oneNull</label>
+            <md-select ng-model="query.oneNull">
+                <md-option value=""><em>None</em></md-option>
+                <md-option value="true"><em>True</em></md-option>
+                <md-option value="false"><em>False</em></md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-input-container>
+            <label>approved</label>
+            <md-select ng-model="query.approved">
+                <md-option value=""><em>None</em></md-option>
+                <md-option value="true"><em>True</em></md-option>
+                <md-option value="false"><em>False</em></md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-button class="md-primary md-raised" ng-click="load();">بیاب</md-button>
+
+        <div layout-align="left center" flex>
+            <cl-paging flex
+                       cl-pages="paging.pageCount"
+                       cl-steps="6"
+                       cl-page-changed="onPageChanged()"
+                       cl-align="center center"
+                       cl-current-page="paging.current">
+            </cl-paging>
+        </div>
+    </div>
+
+
+    <md-divider></md-divider>
+    <div style="color: #888;padding-top: 10px;text-align: center;">
+        صفحه {{paging.current | persianNumbers}} از {{paging.pageCount | persianNumbers}} - تعداد کل آیتم‌ها
+        {{paging.totalSize | persianNumbers}}
+    </div>
+    <md-divider></md-divider>
+
+    <table class="simple" cellspacing="0" cellpadding="5">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th style="max-width: 250px;">خصیصه</th>
+            <th>الگوها</th>
+            <th>گزاره‌ها</th>
+            <th>کلاس‌ها</th>
+            <th>الگوهای تایید نشده</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in items track by $index" ng-class="{even: $even, odd: $odd}">
+            <td>{{(paging.pageIndex * paging.pageSize + $index)+1 | persianNumbers}}</td>
+            <td>{{item.property}}</td>
+            <td>
+                <div ng-repeat="t in item.templates track by $index">{{t}}</div>
+            </td>
+            <td>
+                <div ng-repeat="p in item.predicates track by $index">
+
+                    <a ng-if="!p.startsWith('fkgo:')"
+                       target="_blank"
+                       ng-href="{{p}}">{{p | mapPrefix}}</a>
+
+                    <a ng-if="p.startsWith('fkgo:')"
+                       ui-sref="ontology.property({propertyUrl:$parent.getFKGOpropertyUrl(p)})"
+                       target="_blank">{{p}}</a>
+                </div>
+            </td>
+            <td>
+                <div ng-repeat="c in item.classes track by $index">{{c}}</div>
+            </td>
+            <td>
+                <div ng-repeat="c in diffArrays(item.approvedInTemplates, item.templates) track by $index">{{c}}</div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</md-content>
+
+<md-content ng-show="err">
+    <h1 style="text-align: center; color: red;">خطایی رخ داده است!</h1>
+</md-content>

@@ -1,0 +1,12 @@
+<div ng-include="'./templates/toolbar.html'"></div>
+<div ng-cloak>
+    <md-content>
+        <md-tabs md-dynamic-height md-border-bottom md-selected="getSelectedTabIndex()">
+            <md-tab ui-sref="home.dashboard" label="داشبورد"></md-tab>
+            <md-tab ui-sref="home.users" label="کاربران" ng-if="roles.indexOf('User')!==-1"></md-tab>
+            <md-tab ui-sref="home.permissions" label="دسترسی‌ها" ng-if="roles.indexOf('Forward')!==-1"></md-tab>
+            <md-tab ui-sref="home.forwards" label="فورواردها" ng-if="roles.indexOf('Forward')!==-1"></md-tab>
+        </md-tabs>
+    </md-content>
+</div>
+<div ui-view></div>

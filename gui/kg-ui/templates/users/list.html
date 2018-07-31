@@ -1,0 +1,75 @@
+<md-toolbar class="md-whiteframe-1dp">
+    <div class="md-toolbar-tools">
+        <div class="md-title">سیستم گراف دانش</div>
+
+        <span flex=""></span>
+        <span class="fa fa-lg fa-user"></span>
+        <h3>({{username}})</h3>
+        <md-button ng-click="logout($event)">خروج</md-button>
+    </div>
+</md-toolbar>
+
+<md-content laout="column" flex>
+
+    <md-card>
+        <form name="Form" ng-submit="load();">
+            <md-input-container>
+                <label>نام</label>
+                <input type="text" name="name" ng-model="query.name">
+            </md-input-container>
+
+            <md-input-container>
+                <label>نام کاربری</label>
+                <input type="text" name="username" ng-model="query.username">
+            </md-input-container>
+
+            <md-button type="submit" class="md-raised md-primary" ng-click="load();" aria-label="search">بیاب</md-button>
+            <!--<md-button class="md-raised" ng-click="clear();">همه</md-button>-->
+        </form>
+    </md-card>
+
+    <md-card>
+
+        <md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+                <span>فهرست کاربران</span>
+                <div flex></div>
+                <md-button class="md-icon-button" ng-click="load()">
+                    <md-icon class="fa fa-lg fa-refresh" aria-label="بروزرسانی"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-table-container>
+            <table md-table cellpadding="10" cellspacing="0" style="width: 100%;">
+                <thead md-head>
+                <tr md-row>
+                    <th md-column>نام</th>
+                    <th md-column>نام کاربری</th>
+                    <th md-column>دسترسی‌ها</th>
+                    <th md-column style="width: 50px;"></th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row ng-repeat="user in data.users track by $index">
+                    <td md-cell>{{user.name}}</td>
+                    <td md-cell>{{user.username}}</td>
+                    <td md-cell>{{user.permissions}}</td>
+                    <td md-cell>
+                        <md-button class="md-icon-button" ng-click="edit(user);">
+                            <md-icon class="fa fa-lg fa-edit" aria-label="ویرایش"></md-icon>
+                        </md-button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+
+    </md-card>
+
+    <div>
+        <md-button type="submit" class="md-raised md-warn" ng-click="edit();" aria-label="add">ایجاد کاربر جدید</md-button>
+
+    </div>
+
+</md-content>

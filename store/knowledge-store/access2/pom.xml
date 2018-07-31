@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <artifactId>knowlede-store-access2</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <name>Knowledge Store Access 2</name>
+    <parent>
+        <relativePath>../</relativePath>
+        <groupId>ir.ac.iust.dml.kg.knowledge.store</groupId>
+        <artifactId>parent</artifactId>
+        <version>2.2.0</version>
+    </parent>
+
+    <build>
+    </build>
+
+    <dependencies>
+        <!-- Other Dependencies -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

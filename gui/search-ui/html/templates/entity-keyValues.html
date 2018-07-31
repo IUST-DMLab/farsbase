@@ -1,0 +1,7 @@
+<div ng-repeat="(key, v) in entity.keyValues" class="key-value-item">
+    <span class="medium-text bold" style="margin-left: 5px;">{{key}}: </span>
+    <span ng-repeat="value in v.values">
+        <span ng-if="!value.link.startsWith('http')" class="medium-text gray">{{value.string}}</span>
+        <a ng-if="value.link.startsWith('http')" ng-href="{{value.link}}" class="medium-text">{{value.string}}</a>
+    </span>
+</div>

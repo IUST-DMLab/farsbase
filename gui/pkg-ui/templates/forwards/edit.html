@@ -1,0 +1,122 @@
+<md-dialog aria-label="Edit" style="direction:rtl;" flex="75">
+    <form name="Form" novalidate>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 ng-if="!newForward">ویرایش</h2>
+                <h2 ng-if="newForward">ایجاد فوروارد جدید</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content dir="rtl">
+            <div class="md-dialog-content">
+                <div layout="column">
+                    <div layout="row">
+                        <md-input-container flex="50">
+                            <label>مبدا</label>
+                            <input type="text"
+                                   class="left ltr"
+                                   name="source"
+                                   ng-model="forward.source"
+                                   required
+                                   ng-minlength="2"
+                                   autocomplete="new-source">
+                        </md-input-container>
+                        <md-input-container flex="50">
+                            <label>مقصد</label>
+                            <input type="text" name="destination"
+                                   class="left ltr"
+                                   ng-model="forward.destination"
+                                   required
+                                   ng-minlength="2"
+                                   autocomplete="new-destination">
+                        </md-input-container>
+                    </div>
+
+                    <div layout="row" layout-wrap>
+                        <md-checkbox ng-repeat="prm in permissions"
+                                     ng-model="prm.selected">{{prm.title}}
+                        </md-checkbox>
+                    </div>
+                    <hr style="margin: 10px 0;">
+
+                    <div layout="column">
+                        <div ng-repeat="u in forward.urns" class="urn">
+
+                            <div layout="row">
+                                <md-input-container flex="40">
+                                    <label>urn</label>
+                                    <input type="text" name="destination" class="left ltr" ng-model="u.urn" required
+                                           ng-minlength="2">
+                                </md-input-container>
+
+                                <md-input-container flex="20">
+                                    <label>type</label>
+                                    <md-select ng-model="u.type" required>
+                                        <md-option value=""><em>None</em></md-option>
+                                        <md-option value="StartWith"><em>StartWith</em></md-option>
+                                        <md-option value="Contains"><em>Contains</em></md-option>
+                                        <md-option value="Match"><em>Match</em></md-option>
+                                    </md-select>
+                                </md-input-container>
+
+                                <md-input-container flex="15">
+                                    <label>method</label>
+                                    <md-select ng-model="u.method">
+                                        <md-option value=""><em>None</em></md-option>
+                                        <md-option value="GET"><em>GET</em></md-option>
+                                        <md-option value="POST"><em>POST</em></md-option>
+                                    </md-select>
+                                </md-input-container>
+
+                                <md-input-container flex="20">
+                                    <label>دسترسی‌ها</label>
+                                    <md-select multiple
+                                               ng-model="u.permissions"
+                                               ng-model-options="{trackBy : '$value.title'}">
+                                        <md-option ng-repeat="p in permissions"
+                                                   ng-value="p">{{p.title}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+
+                                <div flex="5" layout-align="center center">
+                                    <md-button class="md-icon-button" ng-click="removeUrn(u);">
+                                        <md-icon class="fa fa-lg fa-remove" aria-label="remove"></md-icon>
+                                    </md-button>
+                                </div>
+
+                            </div>
+
+                            <!--
+                                                        <div layout="row" layout-wrap>
+                                                            <label>دسترسی‌ها</label>
+                                                            <span flex="5"></span>
+                                                            <md-checkbox ng-repeat="prm in u.permissions"
+                                                                         aria-label="urn permissions"
+                                                                         ng-model="prm.selected">{{prm.title}}
+                                                            </md-checkbox>
+                                                        </div>
+                            -->
+
+                            <!--<hr ng-if="!$last">-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button type="submit" class="md-raised md-warn" ng-click="addUrn();" aria-label="addUrn">ایجاد urn جدید
+            </md-button>
+            <span flex></span>
+
+            <md-button type="submit"
+                       class="md-raised md-primary"
+                       ng-disabled="Form.$invalid"
+                       ng-click="save();">ذخیره
+            </md-button>
+            <md-button class="md-raised" ng-click="cancel();">انصراف</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

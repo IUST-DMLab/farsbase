@@ -1,0 +1,42 @@
+<div layout="column">
+    <form ng-submit="requestMore();">
+        <div layout="column">
+            <div layout="row" layout-align="start" flex>
+                <md-input-container flex="70">
+                    <label>موجودیت</label>
+                    <input type="text" ng-model="search.text">
+                </md-input-container>
+
+                <md-input-container flex="30">
+                    <md-checkbox ng-model="search.exact" aria-label="دقیق">جستجوی دقیق</md-checkbox>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container>
+                    <label>ماژول</label>
+                    <md-select ng-model="search.module">
+                        <!--<md-option ng-value=""></md-option>-->
+                        <md-option ng-repeat="(i, m) in modules"
+                                   ng-value="m"
+                                   ng-selected="i===0 ? true : false">{{m}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container>
+                    <md-button class="md-raised md-primary" ng-click="requestMore();">تخصیص</md-button>
+                </md-input-container>
+            </div>
+        </div>
+    </form>
+    <md-divider></md-divider>
+    <div ng-if="data">
+        <md-list-item class="md-1-line" ng-repeat="subject in data.subjects.list" ng-click="loadTriples(subject)">
+            <div class="md-list-item-text" layout="column">
+                <div class="rtl right" style="white-space: nowrap">
+                    <span>{{subject.caption | mapPrefix}}</span>
+                </div>
+            </div>
+        </md-list-item>
+    </div>
+</div>

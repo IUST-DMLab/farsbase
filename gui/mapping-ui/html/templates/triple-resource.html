@@ -1,0 +1,110 @@
+<table ng-if="data.items" class="simple" style="width: 100%;">
+    <thead>
+    <tr>
+        <th style="width: 5%;">#</th>
+        <th style="width: 30%;">خصیصه</th>
+        <th style="width: 60%;">مقدار</th>
+        <th style="width: 5%; white-space: nowrap" class="left">ماژول استخراج</th>
+        <th style="width: 5%; white-space: nowrap" class="left">
+            <span style="padding: 0 10px 0 0;">ورژن</span>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat='item in data.items' class="line">
+        <td style="vertical-align: top;">{{($index)+1 | persianNumbers}}</td>
+        <td class="rtl" style="vertical-align: top; padding-top: 5px;">
+            <a href="{{item.predicate}}" rel="noreferrer">{{item.predicate | mapPrefix}}</a>
+        </td>
+        <td class="rtl">
+            <div ng-repeat="v in item.triples" class="property">
+                <table cellpadding="2" cellspacing="2" class="simple" style="width: 100%;">
+                    <tr>
+                        <td style="vertical-align: top; width: 20px;">
+                            <span class="fa smaller-text fa-circle" style="margin-left:5px;"></span>
+                        </td>
+                        <td style="max-width: 30%;vertical-align: top; text-align: justify;">
+                            <div ng-if="v.type!='Resource'"
+                                 class="right"
+                                 ng-class="v.lang==='en' ? 'ltr' : ''">
+
+                                <span ng-if="v.lang==='en' && v.type==='String'" class="small-text text-nowrap">({{v.lang}})</span>
+                                <span ng-if="v.type!=='Date'">{{v.value}}</span>
+                                <span ng-if="v.type==='Date'">{{v.value | date:'yyyy-MM-dd'}}<br/>epoch:{{v.value}}</span>
+                                <span ng-if="v.lang==='fa' && v.type==='String'" class="small-text text-nowrap">({{v.lang}})</span>
+
+                            </div>
+                            <!--  <span ng-if="v.type!='Resource'" style="max-width: 30%;">
+                                {{v.value}}
+                                <span ng-if="v.lang" class="small-text text-nowrap">({{v.lang}})</span>
+                            </span>  -->
+
+                            <div ng-if="v.type=='Resource'" style="display: inline-block">
+                                <a ng-if="v.value.indexOf('upload.wikimedia.org')===-1"
+                                   ng-href="{{v.value}}" rel="noreferrer">{{v.value | mapPrefix}}</a>
+                                <img ng-if="v.value.indexOf('upload.wikimedia.org')!==-1"
+                                     ng-src="{{v.value}}" style="max-width: 120px; max-height: 120px;"/>
+                            </div>
+
+                            <div ng-repeat="(p, pp) in v.properties" style="margin-right: 20px; width: 100%;">
+                                <table style="width: 100%;">
+                                    <td style="vertical-align: top; width: 20px;">
+                                        <span class="fa small-text fa-minus" style="margin-left:5px;"></span>
+                                    </td>
+                                    <td style="width: 30%;">
+                                        <a href="{{p}}" rel="noreferrer" style="margin-left: 10px;">{{p |
+                                            mapPrefix}}</a>
+                                    </td>
+                                    <td style="width: auto;">
+                                        <table cellpadding="2" cellspacing="2" class="simple">
+                                            <tr>
+                                                <td style="vertical-align: top;">
+                                                    <span class="fa small-text fa-minus"
+                                                          style="margin-left:5px;"></span>
+                                                </td>
+                                                <td ng-if="pp.type!='Resource'"
+                                                    class="right"
+                                                    ng-class="v.lang==='en' ? 'ltr' : ''"
+                                                    style="max-width: 30%;">
+
+                                                    <span ng-if="pp.lang==='en' && pp.type==='String'"
+                                                          class="small-text text-nowrap">({{pp.lang}})</span>
+                                                    <span ng-if="pp.type!=='Date'">{{pp.value}}</span>
+                                                    <span ng-if="pp.type==='Date'">{{pp.value | date:'yyyy-MM-dd'}}<br/>epoch:{{pp.value}}</span>
+                                                    <span ng-if="pp.type!=='String'"> ({{pp.type}})</span>
+                                                    <span ng-if="pp.lang==='fa' && pp.type==='String'"
+                                                          class="small-text text-nowrap">({{pp.lang}})</span>
+
+                                                </td>
+                                                <td ng-if="pp.type=='Resource'"
+                                                    style="max-width: 30%;vertical-align: top;">
+                                                    <a ng-if="pp.value.indexOf('upload.wikimedia.org')===-1"
+                                                       ng-href="{{pp.value}}" rel="noreferrer">{{pp.value |
+                                                        mapPrefix}}</a>
+                                                    <img ng-if="pp.value.indexOf('upload.wikimedia.org')!==-1"
+                                                         ng-src="{{pp.value}}"
+                                                         style="max-width: 120px; max-height: 120px;"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </table>
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div ng-if="v.__rawText" style="color: #888;">استخراج شده از متن: {{v.__rawText}}</div>
+            </div>
+
+        </td>
+        <td class="ltr left" style="vertical-align: top;">
+            <div ng-repeat="v in item.triples">{{v.source.module}}</div>
+        </td>
+        <td class="ltr left" style="vertical-align: top;">
+            <div ng-repeat="v in item.triples">{{v.source.version | persianNumbers}}</div>
+        </td>
+    </tr>
+    </tbody>
+</table>

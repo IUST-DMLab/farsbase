@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">فیدبک</h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+    <form name="fbForm" novalidate>
+        <table cellspacing="4" cellpadding="4" class="feedback">
+            <tr>
+                <td class="label">نام :</td>
+                <td class="value">
+                    <input name="name" type="text" ng-model="fb.name" required/>
+                </td>
+                <td>
+                    <div ng-messages="fbForm.name.$error">
+                            <span ng-message="required" class="error"
+                                  ng-show="fbForm.name.$touched">*</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">ایمیل :</td>
+                <td class="value">
+                    <input name="email" type="email" ng-model="fb.email" required class="ltr left"/>
+                </td>
+                <td>
+                    <div ng-messages="fbForm.email.$error">
+                        <span ng-message="required" class="error" ng-show="fbForm.email.$touched">*</span>
+                        <span ng-message="email" class="error" ng-show="fbForm.email.$touched">*</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">عبارت جستجو :</td>
+                <td class="value">
+                    <input name="query" type="text" ng-model="fb.query" />
+                </td>
+                <td>
+                    <!--
+                                            <div ng-messages="fbForm.query.$error">
+                                                <span ng-message="required" class="error"
+                                                      ng-show="fbForm.query.$touched">*</span>
+                                            </div>
+                    -->
+                </td>
+            </tr>
+            <tr>
+                <td class="label">توضیحات :</td>
+                <td class="value">
+                    <textarea name="text" ng-model="fb.text" required ng-minlength="10"/>
+                    <div class="small-text gray">متن توضیحات باید دست‌کم ۱۰ کاراکتر باشد.</div>
+                </td>
+                <td>
+                    <div ng-messages="fbForm.query.$error">
+                        <span ng-message="required" class="error" ng-show="fbForm.query.$touched">*</span>
+                        <span ng-message="minlength" class="error" ng-show="fbForm.query.$touched">*</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="submit" ng-click="ok()" ng-disabled="fbForm.$invalid">تایید</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">انصراف</button>
+</div>

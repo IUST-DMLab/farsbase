@@ -1,0 +1,53 @@
+@font-face {
+    font-family: "DroidArabicKufi";
+    src: url('fonts/DroidFonts/Droid%20Arabic%20Kufi.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "DroidNaskh";
+    src: url('fonts/DroidFonts/DroidNaskh-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "IRANSans";
+    src: url('fonts/IranFonts/IRAN_Sans.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "IRANSansBold";
+    src: url('fonts/IranFonts/IRAN_Sans_Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'IRANSans-web';
+    src: url('fonts/IranFonts/IRANSans.eot?#') format('eot'), /* IE6�8 */ url('fonts/IranFonts/IRANSans.woff2') format('woff2'), /* Chrome36+, Opera24+*/ url('fonts/IranFonts/IRANSans.woff') format('woff');
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'IRANSans-web';
+    src: url('fonts/IranFonts/IRANSans-Bold.eot?#') format('eot'), /* IE6�8 */ url('fonts/IranFonts/IRANSans-Bold.woff2') format('woff2'), /* Chrome36+, Opera24+*/ url('fonts/IranFonts/IRANSans-Bold.woff') format('woff');
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    font-weight: bold;
+}
+
+.fontDroidArabicKufi {
+    font-family: DroidArabicKufi !important;
+}
+
+.fontDroidNaskh {
+    font-family: DroidNaskh !important;
+}
+
+.fontIRANSans {
+    font-family: IRANSans !important;
+}
+
+.fontIRANSansBold {
+    font-family: IRANSansBold !important;
+}
+
+.fontIRANSans-web {
+    font-family: IRANSans-web !important;
+}

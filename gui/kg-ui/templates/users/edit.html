@@ -1,0 +1,57 @@
+<md-dialog aria-label="Edit" style="direction:rtl;">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 ng-if="user">ویرایش</h2>
+                <h2 ng-if="!user">ایجاد کاربر جدید</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="fa fa-lg fa-close" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <!--<md-card>-->
+                    <div class="layout-padding">
+                        <div layout="column">
+                            <md-input-container>
+                                <label>نام</label>
+                                <input type="text" name="u-name" ng-model="user.name" ng-required ng-minlength="2" autocomplete="off">
+                            </md-input-container>
+
+                            <md-input-container>
+                                <label>نام کاربری</label>
+                                <input type="text" name="u-username" ng-model="user.username" ng-required ng-minlength="2" autocomplete="off">
+                            </md-input-container>
+
+                            <md-input-container>
+                                <fieldset class="standard">
+                                    <legend>دسترسی‌ها</legend>
+                                    <div>
+                                        <md-checkbox ng-model="pExpert">Expert</md-checkbox>
+                                        <md-checkbox ng-model="pSuperuser">Superuser</md-checkbox>
+                                        <md-checkbox ng-model="pVIPExpert">VIPExpert</md-checkbox>
+                                    </div>
+                                </fieldset>
+                            </md-input-container>
+
+                            <md-input-container>
+                                <label>کلمه عبور</label>
+                                <input type="password" name="u-password" ng-model="user.password" ng-required ng-minlength="2" autocomplete="off">
+                            </md-input-container>
+
+                        </div>
+                    </div>
+                <!--</md-card>-->
+
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button type="submit" class="md-raised md-primary" ng-click="save();">ذخیره</md-button>
+            <md-button class="md-raised" ng-click="cancel();">انصراف</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

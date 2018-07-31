@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html ng-app='kgui'>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+
+    <title>Knowledge Graph - Triples UI</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-sanitize/angular-sanitize.js"></script>
+
+    <script type="text/javascript" src="../libs/jquery.growl/javascripts/jquery.growl.js"></script>
+    <link rel="stylesheet" type="text/css" href="../libs/jquery.growl/stylesheets/jquery.growl.css">
+
+    <script type="text/javascript" src="../node_modules/ng-tags-input/build/ng-tags-input.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/ng-tags-input/build/ng-tags-input.min.css">
+
+    <script type="text/javascript" src="../node_modules/angular-auto-complete/angular-auto-complete.js"></script>
+    <link rel="stylesheet" href="../node_modules/angular-auto-complete/angular-auto-complete.css"/>
+
+    <script type="text/javascript" src="../node_modules/angular-paging/dist/paging.min.js"></script>
+
+    <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="../scripts/app/app.js"></script>
+    <script type="text/javascript" src="../scripts/app/config.js?v=13960715B"></script>
+    <script type="text/javascript" src="../scripts/app/service/rest.js"></script>
+    <script type="text/javascript" src="../scripts/app/controller/main.js"></script>
+
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body ng-controller="TriplesController">
+<div ng-include="'templates/header.html'"></div>
+
+<div class="container" id="body">
+
+
+    <div class="text-center">
+        <form class="form-inline">
+            <label>جستجو</label>
+
+            <input type="text" class="input" ng-model="filter.object" placeholder="موجودیت" style="width: 450px;"/>
+
+            <button class="btn btn-success" ng-click="go(0)">بیاب</button>
+            <!--<button class="btn btn-warning" ng-click="clear()">Clear</button>-->
+        </form>
+    </div>
+
+    <table ng-if="data.data" cellpadding="10" cellspacing="10" style="width: 760px; margin:0 auto;">
+        <tr>
+            <td>
+                <div paging
+                     page="data.pageNo"
+                     page-size="data.pageSize"
+                     total="data.totalSize"
+                     paging-action="go(page-1)">
+                </div>
+            </td>
+            <td>
+                <form ng-submit="go(data.searchPageNo-1)">
+                    صفحه:
+                    <input placeholder="page"
+                           ng-model="data.searchPageNo"
+                           style="width: 50px; border:solid 1px #ddd; height: 35px;">
+                </form>
+            </td>
+            <td>
+                <strong>
+                    تعداد کل : {{data.totalSize}}
+                </strong>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table" ng-if="data">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>مقدار</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat='a in data.data'>
+            <td>{{(data.page * data.pageSize + $index)+1}}</td>
+            <td>
+                <!--<a href="triple.html?subject={{a.subject}}">{{a.object.value}}</a>-->
+                <a href="{{a.subject}}">{{a.object.value}}</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<!--<div ng-include="'templates/footer.html'"></div>-->
+</body>
+
+</html>

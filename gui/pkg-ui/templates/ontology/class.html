@@ -1,0 +1,154 @@
+<div ng-show="clazz">
+    <div layout-margin>
+
+        <div layout="row" layout-align="center center">
+            <h1>{{clazz.faLabel || 'عنوانی برای کلاس انتخاب نشده است !!!'}}</h1>
+            <a class="medium-text"
+               style="margin: 0 5px;"
+               ui-sref="ontology.class-edit({classUrl:clazz.url})">(ویرایش)</a>
+
+            <span flex></span>
+
+            <div layout="row" layout-align="center center">
+                <md-button ng-disabled="!clazz.previous" ng-click="prevClass($event)" class="md-primary">
+                    <span class="fa fa-lg fa-caret-right"></span>
+                    <span>کلاس قبلی</span>
+                </md-button>
+
+                <md-button ng-disabled="!clazz.next" ng-click="nextClass($event)" class="md-primary">
+                    <span>کلاس بعدی</span>
+                    <span class="fa fa-lg fa-caret-left"></span>
+                </md-button>
+            </div>
+
+            <span flex></span>
+        </div>
+
+        <div>
+            <table>
+                <tr>
+                    <td class="left" style="width: 185px;">
+                        <h3>نام کلاس : </h3>
+                    </td>
+                    <td>{{clazz.name}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>آدرس : </h3>
+                    </td>
+                    <td><a href="{{clazz.url}}">{{clazz.url}}</a></td>
+                    <!--<td><a ui-sref="ontology.class({classUrl:clazz.url})">{{clazz.url}}</a></td>-->
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>برچسب فارسی : </h3>
+                    </td>
+                    <td>{{clazz.faLabel}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>برچسب انگلیسی : </h3>
+                    </td>
+                    <td>{{clazz.enLabel}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>توضیحات فارسی : </h3>
+                    </td>
+                    <td>{{clazz.faComment}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>توضیحات انگلیسی : </h3>
+                    </td>
+                    <td class="ltr left">{{clazz.enComment}}</td>
+                </tr>
+
+                <tr>
+                    <td class="left">
+                        <h3>سایر برچسب‌های فارسی : </h3>
+                    </td>
+                    <td>{{clazz.faVariantLabels.join('، ')}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>سایر برچسب‌های انگلیسی : </h3>
+                    </td>
+                    <td>{{clazz.enVariantLabels.join(', ')}}</td>
+                </tr>
+
+                <tr>
+                    <td class="left">
+                        <h3>کلاس والد : </h3>
+                    </td>
+                    <td>
+                        <a ui-sref="ontology.class({classUrl:clazz.subClassOf})">{{clazz.subClassOf |
+                            extractLastUrlItem}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>کلاس‌های معادل : </h3>
+                    </td>
+                    <td>
+                        <span ng-repeat="item in property.equivalentClasses">{{item}}{{$last ? '' : ' - '}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>کلاس‌های متناقض : </h3>
+                    </td>
+                    <td>
+                        <span ng-repeat="item in property.disjointWith">{{item}}{{$last ? '' : ' - '}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>برگرفته شده از : </h3>
+                    </td>
+                    <td>
+                        <span>{{clazz.wasDerivedFrom}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <md-divider></md-divider>
+
+    <div layout-margin>
+        <h3>خصیصه‌های کلاس «{{clazz.faLabel}}»</h3>
+        <div>
+            <table cellpadding="5" cellspacing="0" class="simple">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام</th>
+                    <th>برچسب فارسی</th>
+                    <th>برچسب انگلیسی</th>
+                    <th>کلاس (Domain)</th>
+                    <th>منبع</th>
+                    <th style="width: 55px;">ویرایش</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="p in clazz.properties track by $index" ng-class="{even: $even, odd: $odd}">
+                    <td>{{$index+1 | persianNumbers}}</td>
+                    <td><a ui-sref="ontology.property({propertyUrl:p.url})">{{p.name}}</a></td>
+                    <td><span>{{p.faLabel}}</span></td>
+                    <td><span>{{p.enLabel}}</span></td>
+                    <td>
+                        <ul class="small">
+                            <li ng-repeat="d in p.domains track by $index">{{d | extractLastUrlItem}}</li>
+                        </ul>
+                    </td>
+                    <td><strong>{{p.wasDerivedFrom | resourcer}}</strong></td>
+                    <td class="center">
+                        <span class="fa fa-lg fa-edit button" ng-click="editProperty(p, $event)"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

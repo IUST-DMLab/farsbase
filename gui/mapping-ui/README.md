@@ -1,0 +1,1 @@
+UI for all mapping services. It's working standalone.

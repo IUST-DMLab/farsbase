@@ -1,0 +1,73 @@
+<md-content>
+    <md-content class="md-padding" layout-align="center center" layout-wrap>
+        <md-input-container class="md-block">
+            <label>متن مورد نظر خود را در اینجا کپی کنید</label>
+            <textarea ng-model="fkgfyText" md-maxlength="10000" rows="2" md-select-on-focus
+                      title="text"></textarea>
+        </md-input-container>
+        <md-button ng-click="fkgfy(fkgfyText)" class="md-raised">
+            تشخیص و لینک‌دهی موجودیت (FKGfy Entity Linking)
+        </md-button>
+        <md-button ng-click="fkgfyDetailed(fkgfyText)" class="md-raised md-warn">
+            FKGfy با نمایش جزئیات و تصاویر
+        </md-button>
+        <md-button ng-click="extractTriples(fkgfyText)" class="md-raised md-primary">
+            استخراج سه تایی‌ها
+        </md-button>
+        <md-tabs md-dynamic-height md-border-bottom md-selected="params.fkgfyTab" ng-show="extractedTriples || fkgfied">
+            <md-tab label="تشخیص موجودیت">
+                <div dir="rtl" layout="row">
+                    <div flex="70" layout="column" style="height: 700px; overflow: scroll">
+                        <div ng-repeat="sentence in fkgfied">
+                            <div ng-repeat="word in sentence"
+                                 style="display: inline-block; padding: 4px">
+                                <div ng-mouseover="hoverDiv(word)" class="{{word.iobType}}">
+                                    <div ng-if="word.resource">
+                                        <a href="{{word.resource.iri}}" target="_blank">{{word.word}}</a>
+                                    </div>
+                                    <div ng-if="!word.resource">{{word.word}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex="30" style="border: #bbbbbb dashed 1px; padding: 10px; height: 700px; overflow: scroll"
+                         ng-if="selectedWord">
+                        <div ng-if="selectedWord.entityData">
+                            <div ng-if="selectedWord.entityData.image.length>5">
+                                <img src="{{selectedWord.entityData.image}}" width="200px"/>
+                            </div>
+                            <div style="display: inline-block;">
+                                {{selectedWord.entityData.abstract}}
+                            </div>
+                        </div>
+                        <div style="display: inline-block">
+                            <div><b>لینک اصلی:</b></div>
+                            <div ng-if="!selectedWord.resource">
+                                هیچ موجودیتی انتخاب نشد
+                            </div>
+                            <div ng-if="selectedWord.resource">
+                                <b>{{selectedWord.resource.rank}}: </b>
+                                <a href="{{selectedWord.resource.iri}}" target="_blank">
+                                    {{selectedWord.resource.iri}}
+                                </a>
+                            </div>
+                            <div ng-if="selectedWord.ambiguities.length > 0"><b>ابهامات دیگر موجودیت</b></div>
+                            <div ng-repeat="amb in selectedWord.ambiguities">
+                                <b>{{amb.rank}}: </b>
+                                <a href="{{amb.iri}}" target="_blank">{{amb.rank}}: {{amb.iri}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </md-tab>
+            <md-tab label="سه‌تایی‌های استخراج شده">
+                <div dir="ltr" layout="row" layout-align="start center" layout-wrap>
+                    <div ng-if="noExtracted">هیچ سه تایی از متن استخراج نشد.</div>
+                    <div ng-repeat="x in extractedTriples" flex="25">
+                        <pre style="white-space: pre-wrap">{{x | json}}</pre>
+                    </div>
+                </div>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</md-content>

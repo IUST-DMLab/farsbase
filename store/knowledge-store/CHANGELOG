@@ -1,0 +1,54 @@
++ 2.2.0
+    - add date to type of tripe values.
+    - using URIs class to obtain prefix addresses and default contexts.
+    The address has been changed to farsbase.net and we must not use fkg.iust.ac.ir in the code.
++ 2.1.0
+    - export gives main parameters from command line to run
+    - fat jar for exporting
+    - bug of virtuoso system-wide exception
+    - add likes for ontology search service
+* 2.0.0
+    - Has not backward compatibility
+    - Use Access 2
+    - Triple store Resource object in secreted string for efficient indexing
+    - Triple can has other properties like startDate, endDate, ...
+    - Index revisited
+    - Add Ontology Service to separate ontology from triples
+    - Copy Template mapping to v2 service to save in store2
+
+* 1.9.0
+    - Use knowledge-core
+    - Add versioning
+
+* 1.8.0
+    - Add approve/reject on insert triple
+    - Add service remove triple
+    - Change search service and add use regex to it
+
+* 1.7.0
+    - Add language to export
+
+* 1.2.0
+    - Add Expert Service
+
+* 1.1.0
+    - Add context
+    - Add v1 Service: search
+    - Add v1 Service: get triple
+    - Add v1 Service: export triple
+    - Add multiple url to a source
+    - Add parameters to a source
+    - Add TypedValue to v1 insert service for object
+
+
+* 1.0.0
+    - Soap web service
+    - Rest web service
+    - Swagger UI
+    - Insert triples metadata on mongodb
+
+
+
+
+
+

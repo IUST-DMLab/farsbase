@@ -1,0 +1,74 @@
+<table ng-if="virtuoso" id="virtuoso" class="simple" style="width: 100%;">
+    <thead>
+    <tr>
+        <th style="width: 5%;">#</th>
+        <th style="width: 30%;">گزاره</th>
+        <th style="width: 65%;">مقدار</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat='(key, values) in virtuoso' class="line">
+        <td style="vertical-align: top;">{{$index + 1 | persianNumbers}}</td>
+        <td class="rtl" style="vertical-align: top;">
+            <a href="{{key}}">{{key | mapPrefix}}</a>
+        </td>
+        <td class="rtl">
+
+            <div ng-repeat="item in values" style="margin-right: 20px;">
+
+                <table cellpadding="2" cellspacing="2" class="simple">
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <span class="fa small-text fa-minus" style="margin-left:5px;"></span>
+                        </td>
+
+                        <td ng-if="item.object.type!='Resource'"
+                            ng-class="item.object.language==='en' ? 'ltr' : ''"
+                            style="max-width: 30%;">
+
+                            <span ng-if="item.object.language==='en'" class="small-text text-nowrap">({{item.object.language}})</span>
+                            <span>{{item.object.value}}</span>
+                            <span ng-if="item.object.language==='fa'" class="small-text text-nowrap">({{item.object.language}})</span>
+
+                        </td>
+
+                        <td ng-if="item.object.type=='Resource'"
+                            style="max-width: 30%; vertical-align: top;">
+
+                            <a ng-if="item.object.value.indexOf('upload.wikimedia.org')===-1"
+                               ng-href="{{item.object.value}}"
+                               rel="noreferrer">{{item.object.value | mapPrefix}}</a>
+                            <img ng-if="item.object.value.indexOf('upload.wikimedia.org')!==-1"
+                                 ng-src="{{item.object.value}}"
+                                 style="max-width: 120px; max-height: 120px;"/>
+
+                        </td>
+
+<!--
+                        <td ng-class="item.object.language==='en' ? 'ltr' : ''">
+                            <span ng-if="item.object.language==='en'" class="small-text text-nowrap">({{item.object.language}})</span>
+                            <a ng-if="item.object.type==='Resource'" href="{{item.object.value}}" rel="noreferrer">{{item.object.value | mapPrefix}}</a>
+                            <span ng-if="item.object.type==='String'">{{item.object.value}}</span>
+                            <span ng-if="item.object.language==='fa'" class="small-text text-nowrap">({{item.object.language}})</span>
+                        </td>
+-->
+
+<!--
+                        <td ng-if="item.object.type!='Resource'" style="max-width: 30%;">
+                            <span>{{item.object.value}}</span>
+                            <span ng-if="item.object.language" class="small-text text-nowrap">({{item.object.language}})</span>
+                        </td>
+                        <td ng-if="item.object.type=='Resource'" style="max-width: 30%;vertical-align: top;">
+                            <a ng-if="item.object.value.indexOf('upload.wikimedia.org')===-1" ng-href="{{item.object.value}}" rel="noreferrer">{{item.object.value | mapPrefix}}</a>
+                            <img ng-if="item.object.value.indexOf('upload.wikimedia.org')!==-1" ng-src="{{item.object.value}}" style="max-width: 120px; max-height: 120px;"/>
+                        </td>
+-->
+
+                    </tr>
+                </table>
+            </div>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
